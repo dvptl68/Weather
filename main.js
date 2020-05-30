@@ -3,7 +3,7 @@ const { screen } = require('electron');
 
 let window;
 
-function createWindow(){
+const createWindow = () => {
 
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   window = new BrowserWindow({
@@ -18,19 +18,19 @@ function createWindow(){
   window.loadFile('app/html/index.html');
   // window.removeMenu();
 
-  window.on('ready-to-show', function(){
+  window.on('ready-to-show', () => {
     window.show();
     window.focus();
   });
 }
 
-app.on('windows-all-closed', function(){
+app.on('windows-all-closed', () => {
   if (process.platform !== 'darwin'){
     app.quit();
   }
 });
 
-app.on('ready', function(){
+app.on('ready', () => {
   if (BrowserWindow.getAllWindows().length === 0){
     createWindow();
   }
