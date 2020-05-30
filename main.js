@@ -7,9 +7,8 @@ function createWindow(){
 
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   window = new BrowserWindow({
-    width: Math.floor(width * 0.8),
-    height: Math.floor(height * 0.9),
-    icon: 'app/images/icon.png',
+    width: Math.floor(width * 0.7),
+    height: Math.floor(height * 0.8),
     show: false,
     webPreferences: {
       nodeIntegration: true
