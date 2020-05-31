@@ -8,14 +8,23 @@ html {
 }
 
 body {
+  /* Add background color to all rows and columns */
   background-color: #3FC1FD;
 }
 
+.container {
+  border: 2px white solid;
+}
+
+.row {
+  border: 2px red solid;
+}
+
+[class*="col"] {
+  border: 2px blue solid;
+}
+
 #title {
-  position: absolute;
-  left: 10px;
-  top: -25px;
-  height: 20;
   font-family: 'Righteous';
   font-size: 35px;
   color: #3663FF;
