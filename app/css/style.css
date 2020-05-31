@@ -1,0 +1,22 @@
+@font-face {
+  font-family: 'Righteous';
+  src: url(../fonts/Righteous/Righteous-Regular.ttf);
+}
+
+html {
+  font-size: 16;
+}
+
+body {
+  background-color: #3FC1FD;
+}
+
+#title {
+  position: absolute;
+  left: 10px;
+  top: -25px;
+  height: 20;
+  font-family: 'Righteous';
+  font-size: 35px;
+  color: #3663FF;
+}
