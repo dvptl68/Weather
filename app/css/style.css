@@ -3,25 +3,25 @@
   src: url(../fonts/Righteous/Righteous-Regular.ttf);
 }
 
-html {
+html, body {
   font-size: 16;
+  height: 100%
 }
 
-body {
-  /* Add background color to all rows and columns */
+[class*="container"] {
+  min-height: 100%;
+  border: 2px black solid;
   background-color: #3FC1FD;
-}
-
-.container {
-  border: 2px white solid;
 }
 
 .row {
   border: 2px red solid;
+  background-color: #3FC1FD;
 }
 
 [class*="col"] {
   border: 2px blue solid;
+  background-color: #3FC1FD;
 }
 
 #title {
