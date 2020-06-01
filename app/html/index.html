@@ -19,6 +19,7 @@
 
   <body>
     
+    <!-- Main container -->
     <div class="container-fluid">
       <!-- Header row -->
       <div class="row">
@@ -26,21 +27,20 @@
         <div class="col-auto">
           <p id="title">Weather</p>
         </div>
+        <!-- Separator column -->
+        <div class="col"></div>
         <!-- Selector buttons -->
-        <div class="col">
+        <div class="col-auto">
           <button id="cur" class="selector">Current</button>
-        </div>
-        <div class="col">
           <button id="min" class="selector">Minute</button>
-        </div>
-        <div class="col">
           <button id="hour" class="selector">Hourly</button>
-        </div>
-        <div class="col">
           <button id="daily" class="selector">Daily</button>
         </div>
-        <div class="col">
-          <button id="city" class="selector">Change city</button>
+        <!-- Separator column -->
+        <div class="col"></div>
+        <!-- Button to change city -->
+        <div class="col-auto">
+          <button id="city">Change</button>
         </div>
       </div>
     </div>

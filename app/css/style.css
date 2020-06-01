@@ -5,7 +5,8 @@
 
 html, body {
   font-size: 16;
-  height: 100%
+  height: 100%;
+  user-select: none;
 }
 
 [class*="container"] {
@@ -28,4 +29,47 @@ html, body {
   font-family: 'Righteous';
   font-size: 35px;
   color: #3663FF;
+}
+
+.selector {
+  background-color: #3FC1FD;
+  border: none;
+  color: black;
+  text-align: center;
+  font-size: 30px;
+  font-family: 'Righteous';
+  padding: 5px 15px;
+  outline: 0 !important;
+  margin: 0px -2px;
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
+
+.selector:hover {
+  background-color: #3663FF;
+  color: white;
+}
+
+#hour { margin-left: -3px; }
+
+#city {
+  background-color: #3FC1FD;
+  color: black;
+  cursor: pointer;
+  border: 4px black solid;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 30px;
+  font-family: 'Righteous';
+  padding: 0px 10px;
+  outline: 0 !important;
+  margin: 0px 0px;
+  margin-top: 1px;
+  transition-duration: 0.5s;
+}
+
+#city:hover {
+  background-color: #3663FF;
+  border-color: #3663FF;
+  color: white;
 }
