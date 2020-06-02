@@ -1,6 +1,6 @@
-//All selector buttons
+//Get all selector buttons
 const selectors = document.getElementsByClassName('selector');
-const selected = 'cur';
+let selected = 'cur';
 
 //Make first selector button the selected one
 selectors.item(0).style.backgroundColor = '#3663FF';
@@ -10,7 +10,7 @@ selectors.item(0).style.cursor = 'default';
 //Change color of clicked selector
 for (let i = 0; i < selectors.length; i++){
   selectors.item(i).addEventListener('click', event => {
-    // selected = event.target.id;
+    selected = event.target.id;
     for (let j = 0; j <selectors.length; j++){
       if (event.target.isSameNode(selectors.item(j))){
         event.target.style.backgroundColor = '#3663FF';
