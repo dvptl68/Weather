@@ -39,3 +39,16 @@ const addLeaveTransition = event => {
   event.target.style.color = 'black';
 };
 
+const getData = async url => {
+  try {
+    const response = await fetch(url);
+    if (response.ok){
+      return await response.json();
+    }
+    throw new Error('Request failed!');
+  }catch (error){
+    console.log(error);
+  }
+};
+
+console.log(getData('http://api.open-notify.org/iss-now.json'));
