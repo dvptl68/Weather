@@ -39,16 +39,18 @@ const addLeaveTransition = event => {
   event.target.style.color = 'black';
 };
 
+const apiKey = 'f8abd2b386c863b278970549d4f4f4f1';
+
 const getData = async url => {
   try {
     const response = await fetch(url);
-    if (response.ok){
-      return await response.json();
-    }
+    if (response.ok){ return await response.json(); }
     throw new Error('Request failed!');
   }catch (error){
     console.log(error);
   }
 };
 
-console.log(getData('http://api.open-notify.org/iss-now.json'));
+getData(`http://api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=${apiKey}`).then(res => {
+  console.log(res);
+});
