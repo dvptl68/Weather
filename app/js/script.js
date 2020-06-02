@@ -45,7 +45,7 @@ const addLeaveTransition = event => {
   event.target.style.color = 'black';
 };
 
-//API key from my account in order to access weather data
+//API key from my account for accessing weather data
 const apiKey = 'f8abd2b386c863b278970549d4f4f4f1';
 
 //Function that returns a promise with the acquired JSON data
@@ -58,7 +58,32 @@ const getData = async url => {
   }
 };
 
-//Sample API call and console log
-getData(`http://api.openweathermap.org/data/2.5/weather?id=4438121&appid=${apiKey}`).then(res => {
-  console.log(res);
-});
+//Fetch current weather data
+getData(`http://api.openweathermap.org/data/2.5/weather?id=4438121&appid=${apiKey}`).then(res => { processCurrent(res); });
+
+//Get content container
+const content = document.getElementById('content');
+
+//Process and output the current weather data
+const processCurrent = data => {
+  //Create first row of content
+  const rowOne = document.createElement('DIV');
+  rowOne.classList.add('row');
+  //Create first two columns of first row
+  const colOne = document.createElement('DIV');
+  const colTwo = document.createElement('DIV');
+  colOne.classList.add('col-auto');
+  colTwo.classList.add('col-auto');
+  //Create paragraph for condition
+  const cond = document.createElement('P');
+  cond.innerHTML = data.weather[0].main;
+  //Create img for icon and fetch icon
+  const icon = document.createElement('IMG');
+  icon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+  //Append all elements
+  colOne.appendChild(icon);
+  colTwo.appendChild(cond);
+  rowOne.appendChild(colOne);
+  rowOne.appendChild(colTwo);
+  content.appendChild(rowOne);
+};
