@@ -93,15 +93,25 @@ const processCurrent = data => {
   colThreeRowOne.classList.add('col-auto');
   //Create paragraph for clouds
   const cloud = document.createElement('P');
-  cloud.innerHTML = 'Cloudiness: ' + data.current.clouds;
+  cloud.innerHTML = 'Cloudiness: ' + data.current.clouds + '%';
   cloud.classList.add('text');
   colThreeRowOne.appendChild(cloud);
 
+  //Create separator columns for first row
+  const colLeftRowOne = document.createElement('DIV');
+  colLeftRowOne.classList.add('col');
+  const colMidRowOne = document.createElement('DIV');
+  colMidRowOne.classList.add('col');
+  const colRightRowOne = document.createElement('DIV');
+  colRightRowOne.classList.add('col');
+
   //Append all elements
+  rowOne.appendChild(colLeftRowOne);
   rowOne.appendChild(colOneRowOne);
   rowOne.appendChild(colTwoRowOne);
+  rowOne.appendChild(colMidRowOne);
   rowOne.appendChild(colThreeRowOne);
-
+  rowOne.appendChild(colRightRowOne);
   content.appendChild(rowOne);
 };
 
