@@ -11,19 +11,18 @@ html, body {
 }
 
 [class*="container"] {
-  /* min-height: 100%; */
   /* border: 2px black solid; */
   background-color: #3FC1FD;
 }
 
 .row {
-  /* border: 2px red solid; */
-  background-color: #3FC1FD;
+  border: 2px red solid;
+  /* background-color: #3FC1FD; */
 }
 
 [class*="col"] {
-  /* border: 2px blue solid; */
-  background-color: #3FC1FD;
+  border: 2px blue solid;
+  /* background-color: #3FC1FD; */
 }
 
 #title {

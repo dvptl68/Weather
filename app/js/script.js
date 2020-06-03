@@ -45,19 +45,6 @@ const addLeaveTransition = event => {
   event.target.style.color = 'black';
 };
 
-//API key from my account for accessing weather data
-const apiKey = 'f8abd2b386c863b278970549d4f4f4f1';
-
-//Function that returns a promise with the acquired JSON data
-const getData = async url => {
-  //Return the data or log the error
-  try {
-    return await (await fetch(url)).json();
-  }catch (error){
-    console.log(error);
-  }
-};
-
 //Object to store data
 let weatherData;
 
@@ -84,7 +71,7 @@ const processCurrent = data => {
   colTwoRowOne.classList.add('col-auto');
   //Create paragraph for condition
   const cond = document.createElement('P');
-  cond.innerHTML = data.current.weather[0].main;
+  cond.innerHTML = data.current.weather[0].description.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
   cond.classList.add('text');
   colTwoRowOne.appendChild(cond);
   
@@ -97,7 +84,7 @@ const processCurrent = data => {
   cloud.classList.add('text');
   colThreeRowOne.appendChild(cloud);
 
-  //Create separator columns for first row
+  //Separator columns for first row
   const colLeftRowOne = document.createElement('DIV');
   colLeftRowOne.classList.add('col');
   const colMidRowOne = document.createElement('DIV');
@@ -105,14 +92,67 @@ const processCurrent = data => {
   const colRightRowOne = document.createElement('DIV');
   colRightRowOne.classList.add('col');
 
-  //Append all elements
+  //Append all first row elements
   rowOne.appendChild(colLeftRowOne);
   rowOne.appendChild(colOneRowOne);
   rowOne.appendChild(colTwoRowOne);
   rowOne.appendChild(colMidRowOne);
   rowOne.appendChild(colThreeRowOne);
   rowOne.appendChild(colRightRowOne);
+
+  //Second row of content
+  const rowTwo = document.createElement('DIV');
+  rowTwo.classList.add('row');
+
+  //First column, second row
+  const colOneRowTwo = document.createElement('DIV');
+  colOneRowTwo.classList.add('col-auto');
+  //Create paragraph for temperature
+  const temp = document.createElement('P');
+  temp.innerHTML = 'Temperature: ' + data.current.temp + '°F';
+  temp.classList.add('text');
+  colOneRowTwo.appendChild(temp);
+
+  //Second column, second row
+  const colTwoRowTwo = document.createElement('DIV');
+  colTwoRowTwo.classList.add('col-auto');
+  //Create paragraph for temperature
+  const feel = document.createElement('P');
+  feel.innerHTML = 'Feels like: ' + data.current.feels_like + '°F';
+  feel.classList.add('text');
+  colTwoRowTwo.appendChild(feel);
+
+  //Third column, second row
+  const colThreeRowTwo = document.createElement('DIV');
+  colThreeRowTwo.classList.add('col-auto');
+  //Create paragraph for temperature
+  const dew = document.createElement('P');
+  dew.innerHTML = 'Dew point: ' + data.current.dew_point + '°F';
+  dew.classList.add('text');
+  colThreeRowTwo.appendChild(dew);
+
+  //Separator columns for first row
+  const colLeftRowTwo = document.createElement('DIV');
+  colLeftRowTwo.classList.add('col');
+  const colMid1RowTwo = document.createElement('DIV');
+  colMid1RowTwo.classList.add('col');
+  const colMid2RowTwo = document.createElement('DIV');
+  colMid2RowTwo.classList.add('col');
+  const colRightRowTwo = document.createElement('DIV');
+  colRightRowTwo.classList.add('col');
+
+  //Append all second row elements
+  rowTwo.appendChild(colLeftRowTwo);
+  rowTwo.appendChild(colOneRowTwo);
+  rowTwo.appendChild(colMid1RowTwo);
+  rowTwo.appendChild(colTwoRowTwo);
+  rowTwo.appendChild(colMid2RowTwo);
+  rowTwo.appendChild(colThreeRowTwo);
+  rowTwo.appendChild(colRightRowTwo);
+
+  //Append all rows to content container
   content.appendChild(rowOne);
+  content.appendChild(rowTwo);
 };
 
 const processMinute = data => {
@@ -127,9 +167,22 @@ const processDaily = data => {
 
 };
 
+//Async function that returns a promise with the acquired JSON data
+const getData = async url => {
+  //Return the data or log the error
+  try {
+    return await (await fetch(url)).json();
+  }catch (error){
+    console.log(error);
+  }
+};
+ 
+//API key from my account for accessing weather data
+const apiKey = 'f8abd2b386c863b278970549d4f4f4f1';
+
 //Fetch all weather data
 const refresh = () => {
-  getData(`https://api.openweathermap.org/data/2.5/onecall?lat=34.49&lon=-89.01&units=imperial&exclude=hourly,daily&appid=${apiKey}`).then(res => {
+  getData(`https://api.openweathermap.org/data/2.5/onecall?lat=40.095613&lon=-82.800351&units=imperial&exclude=hourly,daily&appid=${apiKey}`).then(res => {
     weatherData = res;
     if (selected === 'cur'){
       processCurrent(weatherData);
