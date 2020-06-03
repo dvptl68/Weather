@@ -58,8 +58,8 @@ const getData = async url => {
   }
 };
 
-//Fetch current weather data
-getData(`http://api.openweathermap.org/data/2.5/weather?id=4438121&appid=${apiKey}`).then(res => { processCurrent(res); });
+//Object to store data
+let weatherData;
 
 //Get content container
 const content = document.getElementById('content');
@@ -76,10 +76,11 @@ const processCurrent = data => {
   colTwo.classList.add('col-auto');
   //Create paragraph for condition
   const cond = document.createElement('P');
-  cond.innerHTML = data.weather[0].main;
+  cond.innerHTML = data.current.weather[0].main;
+  cond.classList.add('text');
   //Create img for icon and fetch icon
   const icon = document.createElement('IMG');
-  icon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+  icon.src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`;
   //Append all elements
   colOne.appendChild(icon);
   colTwo.appendChild(cond);
@@ -87,3 +88,33 @@ const processCurrent = data => {
   rowOne.appendChild(colTwo);
   content.appendChild(rowOne);
 };
+
+const processMinute = data => {
+
+};
+
+const processHourly = data => {
+
+};
+
+const processDaily = data => {
+
+};
+
+//Fetch all weather data
+const refresh = () => {
+  getData(`https://api.openweathermap.org/data/2.5/onecall?lat=34.49&lon=-89.01&units=imperial&exclude=hourly,daily&appid=${apiKey}`).then(res => {
+    weatherData = res;
+    if (selected === 'cur'){
+      processCurrent(weatherData);
+    }else if (selected === 'min'){
+      processMinute(weatherData);
+    }else if (selected === 'hour'){
+      processHourly(weatherData);
+    }else{
+      processDaily(weatherData);
+    }
+  });
+}
+
+refresh();
