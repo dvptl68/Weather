@@ -66,26 +66,42 @@ const content = document.getElementById('content');
 
 //Process and output the current weather data
 const processCurrent = data => {
-  //Create first row of content
+
+  //First row of content
   const rowOne = document.createElement('DIV');
   rowOne.classList.add('row');
-  //Create first two columns of first row
-  const colOne = document.createElement('DIV');
-  const colTwo = document.createElement('DIV');
-  colOne.classList.add('col-auto');
-  colTwo.classList.add('col-auto');
+
+  //First column, first row
+  const colOneRowOne = document.createElement('DIV');
+  colOneRowOne.classList.add('col-auto');
+  //Create img for icon and fetch icon
+  const icon = document.createElement('IMG');
+  icon.src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`
+  colOneRowOne.appendChild(icon);
+
+  //Second column, first row
+  const colTwoRowOne = document.createElement('DIV');
+  colTwoRowOne.classList.add('col-auto');
   //Create paragraph for condition
   const cond = document.createElement('P');
   cond.innerHTML = data.current.weather[0].main;
   cond.classList.add('text');
-  //Create img for icon and fetch icon
-  const icon = document.createElement('IMG');
-  icon.src = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}@2x.png`;
+  colTwoRowOne.appendChild(cond);
+  
+  //Third column, first row
+  const colThreeRowOne = document.createElement('DIV');
+  colThreeRowOne.classList.add('col-auto');
+  //Create paragraph for clouds
+  const cloud = document.createElement('P');
+  cloud.innerHTML = 'Cloudiness: ' + data.current.clouds;
+  cloud.classList.add('text');
+  colThreeRowOne.appendChild(cloud);
+
   //Append all elements
-  colOne.appendChild(icon);
-  colTwo.appendChild(cond);
-  rowOne.appendChild(colOne);
-  rowOne.appendChild(colTwo);
+  rowOne.appendChild(colOneRowOne);
+  rowOne.appendChild(colTwoRowOne);
+  rowOne.appendChild(colThreeRowOne);
+
   content.appendChild(rowOne);
 };
 
@@ -118,3 +134,22 @@ const refresh = () => {
 }
 
 refresh();
+
+//Add event listeners to update weather screen
+for (let i = 0; i < selectors.length; i++){
+  //Listen for any of the buttons being clicked
+  selectors.item(i).addEventListener('click', event => {
+    //Clear content and call appropriate method to fill content
+    content.innerHTML = '';
+    selected = event.target.id;
+    if (selected === 'cur'){
+      processCurrent(weatherData);
+    }else if (selected === 'min'){
+      processMinute(weatherData);
+    }else if (selected === 'hour'){
+      processHourly(weatherData);
+    }else{
+      processDaily(weatherData);
+    }
+  });
+}
