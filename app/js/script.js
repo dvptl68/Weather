@@ -157,20 +157,22 @@ const processCurrent = data => {
   //First column, third row
   const colOneRowThree = document.createElement('DIV');
   colOneRowThree.classList.add('col-auto');
-  //Create paragraph for sunrise
-  const rise = document.createElement('P');
-  rise.innerHTML = 'Sunrise: ' + data.current.sunrise;
-  rise.classList.add('text');
-  colOneRowThree.appendChild(rise);
+  //Create paragraph for wind speed
+  const speed = document.createElement('P');
+  speed.innerHTML = 'Wind speed: ' + data.current.wind_speed + " mph";
+  speed.classList.add('text');
+  colOneRowThree.appendChild(speed);
 
   //Second column, third row
   const colTwoRowThree = document.createElement('DIV');
   colTwoRowThree.classList.add('col-auto');
-  //Create paragraph for sunrise
-  const set = document.createElement('P');
-  set.innerHTML = 'Sunset: ' + data.current.sunset;
-  set.classList.add('text');
-  colTwoRowThree.appendChild(set);
+  //Create paragraph for wind direction
+  const dir = document.createElement('P');
+  //Array to store wind direction values
+  const windDirections = ['North','North-Northeast','Northeast','East-Northeast','East','East-Southeast','Southeast','South-Southeast','South','South-Southwest','Southwest','West-Southwest','West','West-Northwest','Northwest','North-Northwest','North'];
+  dir.innerHTML = 'Wind direction: ' + windDirections[Math.floor(data.current.wind_deg/22.5)];
+  dir.classList.add('text');
+  colTwoRowThree.appendChild(dir);
 
   //Separator columns for third row
   const colLeftRowThree = document.createElement('DIV');
