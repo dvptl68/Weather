@@ -11,18 +11,18 @@ html, body {
 }
 
 [class*="container"] {
-  /* border: 2px black solid; */
+  border: 2px black solid;
   background-color: #3FC1FD;
 }
 
 .row {
   border: 2px red solid;
-  /* background-color: #3FC1FD; */
+  background-color: #3FC1FD;
 }
 
 [class*="col"] {
   border: 2px blue solid;
-  /* background-color: #3FC1FD; */
+  background-color: #3FC1FD;
 }
 
 #title {

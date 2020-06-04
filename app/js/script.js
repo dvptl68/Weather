@@ -51,7 +51,7 @@ let weatherData;
 //Get content container
 const content = document.getElementById('content');
 
-//Process and output the current weather data
+//Process and output current weather data
 const processCurrent = data => {
 
   //First row of content
@@ -189,20 +189,50 @@ const processCurrent = data => {
   rowThree.appendChild(colTwoRowThree);
   rowThree.appendChild(colRightRowThree);
 
+  //Fourth row of content
+  const rowFour = document.createElement('DIV');
+  rowFour.classList.add('row');
+
+  //First column, fourth row
+  const colOneRowFour = document.createElement('DIV');
+  colOneRowFour.classList.add('col-auto');
+  //Create paragraph for pressure
+  const pressure = document.createElement('P');
+  pressure.innerHTML = 'Pressue: ' + data.current.pressure + " hPa";
+  pressure.classList.add('text');
+  colOneRowFour.appendChild(pressure);
+
+  //Second column, fourth row
+  const colTwoRowFour = document.createElement('DIV');
+  colTwoRowFour.classList.add('col-auto');
+  //Create paragraph for UV index
+  const uv = document.createElement('P');
+  uv.innerHTML = 'UV Index: ' + data.current.uvi;
+  uv.classList.add('text');
+  colTwoRowFour.appendChild(uv);
+
+  //Append all fourth row elements
+  rowFour.appendChild(colOneRowFour);
+  rowFour.appendChild(colTwoRowFour);
+
   //Append all rows to content container
   content.appendChild(rowOne);
   content.appendChild(rowTwo);
   content.appendChild(rowThree);
+  content.appendChild(rowFour);
 };
 
+//Process and output minutely weather data
 const processMinute = data => {
 
 };
 
+//Process and output hourly weather data
 const processHourly = data => {
 
 };
 
+//Process and output daily weather data
 const processDaily = data => {
 
 };
