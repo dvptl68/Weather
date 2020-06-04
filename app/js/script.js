@@ -239,11 +239,28 @@ const processCurrent = data => {
   rowFour.appendChild(colThreeRowFour);
   rowFour.appendChild(colRightRowFour);
 
+  //Fifth row of content
+  const rowFive = document.createElement('DIV');
+  rowFive.classList.add('row');
+
+  //First column, fifth row
+  const colOneRowFive = document.createElement('DIV');
+  colOneRowFive.classList.add('col-auto');
+  //Create paragraph for pressure
+  const humidity = document.createElement('P');
+  humidity.innerHTML = 'Humidity: ' + data.current.humidity + "%";
+  humidity.classList.add('text');
+  colOneRowFive.appendChild(humidity);
+
+  //Append all fifth row elements
+  rowFive.appendChild(colOneRowFive);
+
   //Append all rows to content container
   content.appendChild(rowOne);
   content.appendChild(rowTwo);
   content.appendChild(rowThree);
   content.appendChild(rowFour);
+  content.appendChild(rowFive);
 };
 
 //Process and output minutely weather data
