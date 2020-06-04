@@ -116,7 +116,7 @@ const processCurrent = data => {
   //Second column, second row
   const colTwoRowTwo = document.createElement('DIV');
   colTwoRowTwo.classList.add('col-auto');
-  //Create paragraph for temperature
+  //Create paragraph for feels like temperature
   const feel = document.createElement('P');
   feel.innerHTML = 'Feels like: ' + data.current.feels_like + '°F';
   feel.classList.add('text');
@@ -125,13 +125,13 @@ const processCurrent = data => {
   //Third column, second row
   const colThreeRowTwo = document.createElement('DIV');
   colThreeRowTwo.classList.add('col-auto');
-  //Create paragraph for temperature
+  //Create paragraph for dew point
   const dew = document.createElement('P');
   dew.innerHTML = 'Dew point: ' + data.current.dew_point + '°F';
   dew.classList.add('text');
   colThreeRowTwo.appendChild(dew);
 
-  //Separator columns for first row
+  //Separator columns for second row
   const colLeftRowTwo = document.createElement('DIV');
   colLeftRowTwo.classList.add('col');
   const colMid1RowTwo = document.createElement('DIV');
@@ -150,9 +150,47 @@ const processCurrent = data => {
   rowTwo.appendChild(colThreeRowTwo);
   rowTwo.appendChild(colRightRowTwo);
 
+  //Third row of content
+  const rowThree = document.createElement('DIV');
+  rowThree.classList.add('row');
+
+  //First column, third row
+  const colOneRowThree = document.createElement('DIV');
+  colOneRowThree.classList.add('col-auto');
+  //Create paragraph for sunrise
+  const rise = document.createElement('P');
+  rise.innerHTML = 'Sunrise: ' + data.current.sunrise;
+  rise.classList.add('text');
+  colOneRowThree.appendChild(rise);
+
+  //Second column, third row
+  const colTwoRowThree = document.createElement('DIV');
+  colTwoRowThree.classList.add('col-auto');
+  //Create paragraph for sunrise
+  const set = document.createElement('P');
+  set.innerHTML = 'Sunset: ' + data.current.sunset;
+  set.classList.add('text');
+  colTwoRowThree.appendChild(set);
+
+  //Separator columns for third row
+  const colLeftRowThree = document.createElement('DIV');
+  colLeftRowThree.classList.add('col');
+  const colMidRowThree = document.createElement('DIV');
+  colMidRowThree.classList.add('col');
+  const colRightRowThree = document.createElement('DIV');
+  colRightRowThree.classList.add('col');
+
+  //Append all third row elements
+  rowThree.appendChild(colLeftRowThree);
+  rowThree.appendChild(colOneRowThree);
+  rowThree.appendChild(colMidRowThree);
+  rowThree.appendChild(colTwoRowThree);
+  rowThree.appendChild(colRightRowThree);
+
   //Append all rows to content container
   content.appendChild(rowOne);
   content.appendChild(rowTwo);
+  content.appendChild(rowThree);
 };
 
 const processMinute = data => {
