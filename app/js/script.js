@@ -205,38 +205,25 @@ const processCurrent = data => {
   //Second column, fourth row
   const colTwoRowFour = document.createElement('DIV');
   colTwoRowFour.classList.add('col-auto');
-  //Create paragraph for UV index
-  const uv = document.createElement('P');
-  uv.innerHTML = 'UV Index: ' + data.current.uvi;
-  uv.classList.add('text');
-  colTwoRowFour.appendChild(uv);
-
-  //Third column, fourth row
-  const colThreeRowFour = document.createElement('DIV');
-  colThreeRowFour.classList.add('col-auto');
-  //Create paragraph for visibility
-  const visibility = document.createElement('P');
-  visibility.innerHTML = 'Visibility: ' + Math.floor(data.current.visibility * 3.28084) + ' ft';
-  visibility.classList.add('text');
-  colThreeRowFour.appendChild(visibility);
+  //Create paragraph for pressure
+  const humidity = document.createElement('P');
+  humidity.innerHTML = 'Humidity: ' + data.current.humidity + "%";
+  humidity.classList.add('text');
+  colTwoRowFour.appendChild(humidity);
 
   //Separator columns for fourth row
   const colLeftRowFour = document.createElement('DIV');
   colLeftRowFour.classList.add('col');
-  const colMid1RowFour = document.createElement('DIV');
-  colMid1RowFour.classList.add('col');
-  const colMid2RowFour = document.createElement('DIV');
-  colMid2RowFour.classList.add('col');
+  const colMidRowFour = document.createElement('DIV');
+  colMidRowFour.classList.add('col');
   const colRightRowFour = document.createElement('DIV');
   colRightRowFour.classList.add('col');
 
   //Append all fourth row elements
   rowFour.appendChild(colLeftRowFour);
   rowFour.appendChild(colOneRowFour);
-  rowFour.appendChild(colMid1RowFour);
+  rowFour.appendChild(colMidRowFour);
   rowFour.appendChild(colTwoRowFour);
-  rowFour.appendChild(colMid2RowFour);
-  rowFour.appendChild(colThreeRowFour);
   rowFour.appendChild(colRightRowFour);
 
   //Fifth row of content
@@ -246,14 +233,35 @@ const processCurrent = data => {
   //First column, fifth row
   const colOneRowFive = document.createElement('DIV');
   colOneRowFive.classList.add('col-auto');
-  //Create paragraph for pressure
-  const humidity = document.createElement('P');
-  humidity.innerHTML = 'Humidity: ' + data.current.humidity + "%";
-  humidity.classList.add('text');
-  colOneRowFive.appendChild(humidity);
+  //Create paragraph for UV index
+  const uv = document.createElement('P');
+  uv.innerHTML = 'UV Index: ' + data.current.uvi;
+  uv.classList.add('text');
+  colOneRowFive.appendChild(uv);
+
+  //Second column, fifth row
+  const colTwoRowFive = document.createElement('DIV');
+  colTwoRowFive.classList.add('col-auto');
+  //Create paragraph for visibility
+  const visibility = document.createElement('P');
+  visibility.innerHTML = 'Visibility: ' + Math.floor(data.current.visibility * 3.28084) + ' ft';
+  visibility.classList.add('text');
+  colTwoRowFive.appendChild(visibility);
+
+  //Separator columns for fifth row
+  const colLeftRowFive = document.createElement('DIV');
+  colLeftRowFive.classList.add('col');
+  const colMidRowFive = document.createElement('DIV');
+  colMidRowFive.classList.add('col');
+  const colRightRowFive = document.createElement('DIV');
+  colRightRowFive.classList.add('col');
 
   //Append all fifth row elements
+  rowFive.appendChild(colLeftRowFive);
   rowFive.appendChild(colOneRowFive);
+  rowFive.appendChild(colMidRowFive);
+  rowFive.appendChild(colTwoRowFive);
+  rowFive.appendChild(colRightRowFive);
 
   //Append all rows to content container
   content.appendChild(rowOne);
