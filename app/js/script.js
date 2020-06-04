@@ -198,7 +198,7 @@ const processCurrent = data => {
   colOneRowFour.classList.add('col-auto');
   //Create paragraph for pressure
   const pressure = document.createElement('P');
-  pressure.innerHTML = 'Pressue: ' + data.current.pressure + " hPa";
+  pressure.innerHTML = 'Pressure: ' + data.current.pressure + " hPa";
   pressure.classList.add('text');
   colOneRowFour.appendChild(pressure);
 
@@ -211,9 +211,33 @@ const processCurrent = data => {
   uv.classList.add('text');
   colTwoRowFour.appendChild(uv);
 
+  //Third column, fourth row
+  const colThreeRowFour = document.createElement('DIV');
+  colThreeRowFour.classList.add('col-auto');
+  //Create paragraph for visibility
+  const visibility = document.createElement('P');
+  visibility.innerHTML = 'Visibility: ' + Math.floor(data.current.visibility * 3.28084) + ' ft';
+  visibility.classList.add('text');
+  colThreeRowFour.appendChild(visibility);
+
+  //Separator columns for fourth row
+  const colLeftRowFour = document.createElement('DIV');
+  colLeftRowFour.classList.add('col');
+  const colMid1RowFour = document.createElement('DIV');
+  colMid1RowFour.classList.add('col');
+  const colMid2RowFour = document.createElement('DIV');
+  colMid2RowFour.classList.add('col');
+  const colRightRowFour = document.createElement('DIV');
+  colRightRowFour.classList.add('col');
+
   //Append all fourth row elements
+  rowFour.appendChild(colLeftRowFour);
   rowFour.appendChild(colOneRowFour);
+  rowFour.appendChild(colMid1RowFour);
   rowFour.appendChild(colTwoRowFour);
+  rowFour.appendChild(colMid2RowFour);
+  rowFour.appendChild(colThreeRowFour);
+  rowFour.appendChild(colRightRowFour);
 
   //Append all rows to content container
   content.appendChild(rowOne);
