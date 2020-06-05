@@ -275,7 +275,7 @@ const processCurrent = data => {
   colOneRowSix.classList.add('col-auto');
   //Create paragraph for sunrise
   const zone = document.createElement('P');
-  zone.innerHTML = 'Timezone: ' + data.timezone.replace(/_/g, ' ');
+  zone.innerHTML = 'Timezone: ' + data.timezone.replace(/_/g, ' ').substr(data.timezone.indexOf('/') + 1);
   zone.classList.add('text');
   colOneRowSix.appendChild(zone);
 
@@ -285,7 +285,10 @@ const processCurrent = data => {
   //Create paragraph for sunrise
   const rise = document.createElement('P');
   const dateOne = new Date((data.current.sunrise + data.timezone_offset) * 1000);
-  rise.innerHTML = 'Sunrise: ' + dateOne.toUTCString().slice(-12, -4);
+  const timeOne = dateOne.toUTCString().slice(-12, -4)
+  rise.innerHTML = 'Sunrise: ';
+  rise.innerHTML += (timeOne.charAt(0) === '0') ? timeOne.substr(1) : timeOne;
+  rise.innerHTML += ' AM';
   rise.classList.add('text');
   colTwoRowSix.appendChild(rise);
 
@@ -295,7 +298,9 @@ const processCurrent = data => {
   //Create paragraph for sunrise
   const set = document.createElement('P');
   const dateTwo = new Date((data.current.sunset + data.timezone_offset) * 1000);
-  set.innerHTML = 'Sunset: ' + dateTwo.toUTCString().slice(-12, -4);
+  set.innerHTML = 'Sunset: ';
+  set.innerHTML += (parseInt(dateTwo.toUTCString().slice(-12, -10)) % 12) + dateTwo.toUTCString().slice(-10, -4);
+  set.innerHTML += ' PM';
   set.classList.add('text');
   colThreeRowSix.appendChild(set);
 
