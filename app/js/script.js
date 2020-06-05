@@ -299,10 +299,24 @@ const processCurrent = data => {
   set.classList.add('text');
   colThreeRowSix.appendChild(set);
 
+  //Separator columns for sixth row
+  const colLeftRowSix = document.createElement('DIV');
+  colLeftRowSix.classList.add('col');
+  const colMid1RowSix = document.createElement('DIV');
+  colMid1RowSix.classList.add('col');
+  const colMid2RowSix = document.createElement('DIV');
+  colMid2RowSix.classList.add('col');
+  const colRightRowSix = document.createElement('DIV');
+  colRightRowSix.classList.add('col');
+
   //Append all sixth row elements
+  rowSix.appendChild(colLeftRowSix);
   rowSix.appendChild(colOneRowSix);
+  rowSix.appendChild(colMid1RowSix);
   rowSix.appendChild(colTwoRowSix);
+  rowSix.appendChild(colMid2RowSix);
   rowSix.appendChild(colThreeRowSix);
+  rowSix.appendChild(colRightRowSix);
 
   //Append all rows to content container
   content.appendChild(rowOne);
