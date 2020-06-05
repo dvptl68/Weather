@@ -286,21 +286,17 @@ const processCurrent = data => {
   const rise = document.createElement('P');
   const dateOne = new Date((data.current.sunrise + data.timezone_offset) * 1000);
   const timeOne = dateOne.toUTCString().slice(-12, -4)
-  rise.innerHTML = 'Sunrise: ';
-  rise.innerHTML += (timeOne.charAt(0) === '0') ? timeOne.substr(1) : timeOne;
-  rise.innerHTML += ' AM';
+  rise.innerHTML = 'Sunrise: ' + ((timeOne.charAt(0) === '0') ? timeOne.substr(1) : timeOne) + ' AM';
   rise.classList.add('text');
   colTwoRowSix.appendChild(rise);
 
   //Third column, sixth row
   const colThreeRowSix = document.createElement('DIV');
   colThreeRowSix.classList.add('col-auto');
-  //Create paragraph for sunrise
+  //Create paragraph for set
   const set = document.createElement('P');
   const dateTwo = new Date((data.current.sunset + data.timezone_offset) * 1000);
-  set.innerHTML = 'Sunset: ';
-  set.innerHTML += (parseInt(dateTwo.toUTCString().slice(-12, -10)) % 12) + dateTwo.toUTCString().slice(-10, -4);
-  set.innerHTML += ' PM';
+  set.innerHTML = 'Sunset: ' + (parseInt(dateTwo.toUTCString().slice(-12, -10)) % 12) + dateTwo.toUTCString().slice(-10, -4) + ' PM';
   set.classList.add('text');
   colThreeRowSix.appendChild(set);
 
