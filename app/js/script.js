@@ -1,3 +1,6 @@
+//Get content container
+const content = document.getElementById('content');
+
 //Get all selector buttons
 const selectors = document.getElementsByClassName('selector');
 let selected = 'cur';
@@ -47,9 +50,6 @@ const addLeaveTransition = event => {
 
 //Object to store data
 let weatherData;
-
-//Get content container
-const content = document.getElementById('content');
 
 //Process and output current weather data
 const processCurrent = data => {
@@ -263,12 +263,51 @@ const processCurrent = data => {
   rowFive.appendChild(colTwoRowFive);
   rowFive.appendChild(colRightRowFive);
 
+  //Sixth row of content
+  const rowSix = document.createElement('DIV');
+  rowSix.classList.add('row');
+
+  //First column, sixth row
+  const colOneRowSix = document.createElement('DIV');
+  colOneRowSix.classList.add('col-auto');
+  //Create paragraph for sunrise
+  const zone = document.createElement('P');
+  zone.innerHTML = 'Timezone: ' + data.timezone.replace(/_/g, ' ');
+  zone.classList.add('text');
+  colOneRowSix.appendChild(zone);
+
+  //Second column, sixth row
+  const colTwoRowSix = document.createElement('DIV');
+  colTwoRowSix.classList.add('col-auto');
+  //Create paragraph for sunrise
+  const rise = document.createElement('P');
+  const dateOne = new Date((data.current.sunrise + data.timezone_offset) * 1000);
+  rise.innerHTML = 'Sunrise: ' + dateOne.toUTCString().slice(-12, -4);
+  rise.classList.add('text');
+  colTwoRowSix.appendChild(rise);
+
+  //Third column, sixth row
+  const colThreeRowSix = document.createElement('DIV');
+  colThreeRowSix.classList.add('col-auto');
+  //Create paragraph for sunrise
+  const set = document.createElement('P');
+  const dateTwo = new Date((data.current.sunset + data.timezone_offset) * 1000);
+  set.innerHTML = 'Sunset: ' + dateTwo.toUTCString().slice(-12, -4);
+  set.classList.add('text');
+  colThreeRowSix.appendChild(set);
+
+  //Append all sixth row elements
+  rowSix.appendChild(colOneRowSix);
+  rowSix.appendChild(colTwoRowSix);
+  rowSix.appendChild(colThreeRowSix);
+
   //Append all rows to content container
   content.appendChild(rowOne);
   content.appendChild(rowTwo);
   content.appendChild(rowThree);
   content.appendChild(rowFour);
   content.appendChild(rowFive);
+  content.appendChild(rowSix);
 };
 
 //Process and output minutely weather data
