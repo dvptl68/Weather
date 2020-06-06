@@ -339,18 +339,26 @@ const processMinute = data => {
     row.classList.add('row');
 
     //Column for information
-    const colOne = document.createElement('DIV');
-    colOne.classList.add('col-auto');
+    const col = document.createElement('DIV');
+    col.classList.add('col-auto');
     //Create paragraph for time
     const info = document.createElement('P');
     //Get time of forecast and precipitation amount
     const min = new Date((element.dt + data.timezone_offset) * 1000);
     info.innerHTML = (parseInt(min.toUTCString().slice(-12, -10)) % 12) + min.toUTCString().slice(-10, -7) + ((parseInt(min.toUTCString().slice(-12, -10)) <= 12) ? " AM -" : " PM -") + " Precipitation: " + (element.precipitation * 0.0393701) + " inches";
     info.classList.add('text');
-    colOne.appendChild(info);
+    col.appendChild(info);
+
+    //Separator columns
+    const colLeft = document.createElement('DIV');
+    colLeft.classList.add('col');
+    const colRight = document.createElement('DIV');
+    colRight.classList.add('col');
     
     //Append all row elements
-    row.appendChild(colOne);
+    row.appendChild(colLeft);
+    row.appendChild(col);
+    row.appendChild(colRight);
 
     //Append row to content container
     content.appendChild(row);
