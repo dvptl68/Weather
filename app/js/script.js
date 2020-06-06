@@ -1,8 +1,11 @@
 //Get content container
 const content = document.getElementById('content');
 
-//Set minimum height for container div
+//Set minimum height for content container
 content.style.minHeight = (window.innerHeight - document.getElementById('header').offsetHeight) + 'px';
+
+//Set initial position for content container
+content.style.top = document.getElementById('header').offsetHeight + 'px';
 
 //Get all selector buttons
 const selectors = document.getElementsByClassName('selector');

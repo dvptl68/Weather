@@ -17,6 +17,12 @@ html, body {
 
 #header {
   position: fixed;
+  z-index: 1;
+}
+
+#content {
+  position: absolute;
+  z-index: 0;
 }
 
 .row {
