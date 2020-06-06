@@ -332,8 +332,8 @@ const processCurrent = data => {
 const processMinute = data => {
 
   //Iterate through all minute forecasts
-  for (let i in data.minutely){
-
+  data.minutely.forEach(element => {
+    
     //Row of content
     const row = document.createElement('DIV');
     row.classList.add('row');
@@ -344,7 +344,7 @@ const processMinute = data => {
     //Create paragraph for time
     const time = document.createElement('P');
     //Get time of forecast
-    const min = new Date((data.minutely[i].dt + data.timezone_offset) * 1000);
+    const min = new Date((element.dt + data.timezone_offset) * 1000);
     time.innerHTML = (parseInt(min.toUTCString().slice(-12, -10)) % 12) + min.toUTCString().slice(-10, -7) + ((parseInt(min.toUTCString().slice(-12, -10)) <= 12) ? " AM:" : " PM:");
     time.classList.add('text');
     colOne.appendChild(time);
@@ -354,7 +354,7 @@ const processMinute = data => {
 
     //Append row to content container
     content.appendChild(row);
-  }
+  });
   
 };
 
