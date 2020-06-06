@@ -342,12 +342,12 @@ const processMinute = data => {
     const colOne = document.createElement('DIV');
     colOne.classList.add('col-auto');
     //Create paragraph for time
-    const t = document.createElement('P');
+    const time = document.createElement('P');
     //Get time of forecast
-    const minuteDate = new Date((data.minutely[i].dt + data.timezone_offset) * 1000);
-    t.innerHTML = minuteDate.toUTCString().slice(-12, -4);
-    t.classList.add('text');
-    colOne.appendChild(t);
+    const min = new Date((data.minutely[i].dt + data.timezone_offset) * 1000);
+    time.innerHTML = (parseInt(min.toUTCString().slice(-12, -10)) % 12) + min.toUTCString().slice(-10, -7) + ((parseInt(min.toUTCString().slice(-12, -10)) <= 12) ? " AM:" : " PM:");
+    time.classList.add('text');
+    colOne.appendChild(time);
     
     //Append all row elements
     row.appendChild(colOne);
