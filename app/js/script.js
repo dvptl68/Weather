@@ -338,9 +338,22 @@ const processMinute = data => {
     const row = document.createElement('DIV');
     row.classList.add('row');
 
+    //First column
+    const colOne = document.createElement('DIV');
+    colOne.classList.add('col-auto');
+    //Create paragraph for time
+    const t = document.createElement('P');
     //Get time of forecast
-    const minuteDate = new Date((data.current.sunrise + data.timezone_offset) * 1000);
-    const time = minuteDate.toUTCString().slice(-12, -4)
+    const minuteDate = new Date((data.minutely[i].dt + data.timezone_offset) * 1000);
+    t.innerHTML = minuteDate.toUTCString().slice(-12, -4);
+    t.classList.add('text');
+    colOne.appendChild(t);
+    
+    //Append all row elements
+    row.appendChild(colOne);
+
+    //Append row to content container
+    content.appendChild(row);
   }
   
 };
