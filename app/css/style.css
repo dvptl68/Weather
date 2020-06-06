@@ -15,6 +15,10 @@ html, body {
   background-color: #3FC1FD;
 }
 
+#header {
+  position: fixed;
+}
+
 .row {
   border: 2px red solid;
   background-color: #3FC1FD;
@@ -78,6 +82,12 @@ html, body {
 
 .text {
   font-size: 35px;
+  color: black;
+  margin-top: 22px;
+}
+
+.text-small {
+  font-size: 30px;
   color: black;
   margin-top: 22px;
 }

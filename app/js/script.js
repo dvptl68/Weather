@@ -346,7 +346,7 @@ const processMinute = data => {
     //Get time of forecast and precipitation amount
     const min = new Date((element.dt + data.timezone_offset) * 1000);
     info.innerHTML = (parseInt(min.toUTCString().slice(-12, -10)) % 12) + min.toUTCString().slice(-10, -7) + ((parseInt(min.toUTCString().slice(-12, -10)) <= 12) ? " AM -" : " PM -") + " Precipitation: " + (element.precipitation * 0.0393701) + " inches";
-    info.classList.add('text');
+    info.classList.add('text-small');
     col.appendChild(info);
 
     //Separator columns
