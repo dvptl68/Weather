@@ -331,6 +331,18 @@ const processCurrent = data => {
 //Process and output minutely weather data
 const processMinute = data => {
 
+  //Iterate through all minute forecasts
+  for (let i in data.minutely){
+
+    //Row of content
+    const row = document.createElement('DIV');
+    row.classList.add('row');
+
+    //Get time of forecast
+    const minuteDate = new Date((data.current.sunrise + data.timezone_offset) * 1000);
+    const time = minuteDate.toUTCString().slice(-12, -4)
+  }
+  
 };
 
 //Process and output hourly weather data
@@ -352,7 +364,7 @@ const getData = async url => {
     console.log(error);
   }
 };
- 
+
 //API key from my account for accessing weather data
 const apiKey = 'f8abd2b386c863b278970549d4f4f4f1';
 
@@ -370,7 +382,7 @@ const refresh = () => {
       processDaily(weatherData);
     }
   });
-}
+};
 
 refresh();
 
