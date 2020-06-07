@@ -3,6 +3,11 @@
   src: url(../fonts/Righteous/Righteous-Regular.ttf);
 }
 
+@font-face {
+  font-family: 'Raleway';
+  src: url(../fonts/Raleway/Raleway-Regular.ttf);
+}
+
 html, body {
   font-size: 16;
   height: 100%;
@@ -93,12 +98,14 @@ html, body {
 }
 
 .text {
+  font-family: 'Raleway';
   font-size: 35px;
   color: black;
   margin-top: 22px;
 }
 
 .text-small {
+  font-family: 'Raleway';
   font-size: 30px;
   color: black;
   margin-top: 22px;
