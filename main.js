@@ -10,6 +10,7 @@ const createWindow = () => {
     width: Math.floor(width * 0.7),
     height: Math.floor(height * 0.8),
     show: false,
+    icon: 'app/images/icon.png',
     webPreferences: {
       nodeIntegration: true
     }
