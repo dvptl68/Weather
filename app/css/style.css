@@ -29,7 +29,10 @@ html, body {
 .row {
   /* border: 2px red solid; */
   background-color: #3FC1FD;
+  border-bottom: 3px black solid;
 }
+
+#header-row { border: none; }
 
 [class*="col"] {
   /* border: 2px blue solid; */
