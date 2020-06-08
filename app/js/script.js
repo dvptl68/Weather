@@ -411,8 +411,9 @@ const displayLoading = () => {
   col.classList.add('col-auto');
   //Create paragraph for label
   const load = document.createElement('P');
-  load.innerHTML = 'Loading...';
+  load.innerHTML = 'Fetching Data...';
   load.classList.add('text');
+  load.style.marginTop = (Math.floor(content.clientHeight / 2.5)) + 'px';
   col.appendChild(load);
 
   //Separator columns
@@ -432,10 +433,15 @@ const displayLoading = () => {
 
 //Fetch all weather data
 const refresh = () => {
+  //Clear all current content
+  content.innerHTML = '';
   //Display loading label
   displayLoading();
   //Fetch data and call appropriate method to display data
   getData(`https://api.openweathermap.org/data/2.5/onecall?lat=40.095613&lon=-82.800351&units=imperial&exclude=hourly,daily&appid=${apiKey}`).then(res => {
+    //Clear loading label
+    content.innerHTML = '';
+    //Call appropriate method to fill content
     weatherData = res;
     if (selected === 'cur'){
       processCurrent(weatherData);
