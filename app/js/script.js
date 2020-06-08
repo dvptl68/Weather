@@ -2,7 +2,15 @@
 const content = document.getElementById('content');
 
 //Set minimum height for content container
-content.style.minHeight = (window.innerHeight - document.getElementById('header').offsetHeight) + 'px';
+const setHeight = () => {
+  content.style.minHeight = (window.innerHeight - document.getElementById('header').offsetHeight) + 'px';
+};
+
+//Set minimum height of content container initially
+setHeight();
+
+//Set minimum height of content container when the screen size is changed
+window.onresize = setHeight;
 
 //Set initial position for content container
 content.style.top = document.getElementById('header').offsetHeight + 'px';
@@ -366,7 +374,6 @@ const processMinute = data => {
     //Append row to content container
     content.appendChild(row);
   });
-  
 };
 
 //Process and output hourly weather data
