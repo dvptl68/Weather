@@ -65,6 +65,39 @@ const addLeaveTransition = event => {
 //Object to store data
 let weatherData;
 
+//Display no data
+const noData = () => {
+
+  //Row of content
+  const row = document.createElement('DIV');
+  row.classList.add('row');
+  row.id = 'header-row';
+
+  //Column for information
+  const col = document.createElement('DIV');
+  col.classList.add('col-auto');
+  //Create paragraph for label
+  const disp = document.createElement('P');
+  disp.innerHTML = 'No data available.';
+  disp.classList.add('text');
+  disp.style.marginTop = (Math.floor(content.clientHeight / 2.5)) + 'px';
+  col.appendChild(disp);
+
+  //Separator columns
+  const colLeft = document.createElement('DIV');
+  colLeft.classList.add('col');
+  const colRight = document.createElement('DIV');
+  colRight.classList.add('col');
+  
+  //Append all row elements
+  row.appendChild(colLeft);
+  row.appendChild(col);
+  row.appendChild(colRight);
+
+  //Append row to content container
+  content.appendChild(row);
+};
+
 //Process and output current weather data
 const processCurrent = data => {
 
@@ -379,67 +412,21 @@ const processMinute = data => {
 //Process and output hourly weather data
 const processHourly = data => {
 
-  //Row of content
-  const row = document.createElement('DIV');
-  row.classList.add('row');
-  row.id = 'header-row';
-
-  //Column for information
-  const col = document.createElement('DIV');
-  col.classList.add('col-auto');
-  //Create paragraph for label
-  const disp = document.createElement('P');
-  disp.innerHTML = (data.hourly === undefined) ? 'No data available.' : 'Data available!';
-  disp.classList.add('text');
-  disp.style.marginTop = (Math.floor(content.clientHeight / 2.5)) + 'px';
-  col.appendChild(disp);
-
-  //Separator columns
-  const colLeft = document.createElement('DIV');
-  colLeft.classList.add('col');
-  const colRight = document.createElement('DIV');
-  colRight.classList.add('col');
-  
-  //Append all row elements
-  row.appendChild(colLeft);
-  row.appendChild(col);
-  row.appendChild(colRight);
-
-  //Append row to content container
-  content.appendChild(row);
+  //Display to user if needed data is unavailable
+  if (data.hourly === undefined){
+    noData();
+    return;
+  }
 };
 
 //Process and output daily weather data
 const processDaily = data => {
 
-  //Row of content
-  const row = document.createElement('DIV');
-  row.classList.add('row');
-  row.id = 'header-row';
-
-  //Column for information
-  const col = document.createElement('DIV');
-  col.classList.add('col-auto');
-  //Create paragraph for label
-  const disp = document.createElement('P');
-  disp.innerHTML = (data.daily === undefined) ? 'No data available.' : 'Data available!';
-  disp.classList.add('text');
-  disp.style.marginTop = (Math.floor(content.clientHeight / 2.5)) + 'px';
-  col.appendChild(disp);
-
-  //Separator columns
-  const colLeft = document.createElement('DIV');
-  colLeft.classList.add('col');
-  const colRight = document.createElement('DIV');
-  colRight.classList.add('col');
-  
-  //Append all row elements
-  row.appendChild(colLeft);
-  row.appendChild(col);
-  row.appendChild(colRight);
-
-  //Append row to content container
-  content.appendChild(row);
+  //Display to user if needed data is unavailable
+  if (data.daily === undefined){
+    noData();
+    return;
+  }
 };
 
 //Async function that returns a promise with the acquired JSON data
