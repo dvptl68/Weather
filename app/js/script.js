@@ -412,6 +412,34 @@ const processHourly = data => {
 //Process and output daily weather data
 const processDaily = data => {
 
+  //Row of content
+  const row = document.createElement('DIV');
+  row.classList.add('row');
+  row.id = 'header-row';
+
+  //Column for information
+  const col = document.createElement('DIV');
+  col.classList.add('col-auto');
+  //Create paragraph for label
+  const disp = document.createElement('P');
+  disp.innerHTML = (data.daily === undefined) ? 'No data available.' : 'Data available!';
+  disp.classList.add('text');
+  disp.style.marginTop = (Math.floor(content.clientHeight / 2.5)) + 'px';
+  col.appendChild(disp);
+
+  //Separator columns
+  const colLeft = document.createElement('DIV');
+  colLeft.classList.add('col');
+  const colRight = document.createElement('DIV');
+  colRight.classList.add('col');
+  
+  //Append all row elements
+  row.appendChild(colLeft);
+  row.appendChild(col);
+  row.appendChild(colRight);
+
+  //Append row to content container
+  content.appendChild(row);
 };
 
 //Async function that returns a promise with the acquired JSON data
