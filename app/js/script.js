@@ -101,6 +101,12 @@ const noData = () => {
 //Process and output current weather data
 const processCurrent = data => {
 
+  //Display to user if needed data is unavailable
+  if (data.current === undefined){
+    noData();
+    return;
+  }
+
   //First row of content
   const rowOne = document.createElement('DIV');
   rowOne.classList.add('row');
@@ -374,6 +380,12 @@ const processCurrent = data => {
 
 //Process and output minutely weather data
 const processMinute = data => {
+
+  //Display to user if needed data is unavailable
+  if (data.minutely === undefined){
+    noData();
+    return;
+  }
 
   //Iterate through all minute forecasts
   data.minutely.forEach(element => {
