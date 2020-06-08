@@ -399,8 +399,42 @@ const getData = async url => {
 //API key from my account for accessing weather data
 const apiKey = 'f8abd2b386c863b278970549d4f4f4f1';
 
+const displayLoading = () => {
+
+  //Row of content
+  const row = document.createElement('DIV');
+  row.classList.add('row');
+  row.id = 'header-row';
+
+  //Column for information
+  const col = document.createElement('DIV');
+  col.classList.add('col-auto');
+  //Create paragraph for label
+  const load = document.createElement('P');
+  load.innerHTML = 'Loading...';
+  load.classList.add('text');
+  col.appendChild(load);
+
+  //Separator columns
+  const colLeft = document.createElement('DIV');
+  colLeft.classList.add('col');
+  const colRight = document.createElement('DIV');
+  colRight.classList.add('col');
+  
+  //Append all row elements
+  row.appendChild(colLeft);
+  row.appendChild(col);
+  row.appendChild(colRight);
+
+  //Append row to content container
+  content.appendChild(row);
+}
+
 //Fetch all weather data
 const refresh = () => {
+  //Display loading label
+  displayLoading();
+  //Fetch data and call appropriate method to display data
   getData(`https://api.openweathermap.org/data/2.5/onecall?lat=40.095613&lon=-82.800351&units=imperial&exclude=hourly,daily&appid=${apiKey}`).then(res => {
     weatherData = res;
     if (selected === 'cur'){
