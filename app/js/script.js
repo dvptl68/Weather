@@ -2,9 +2,7 @@
 const content = document.getElementById('content');
 
 //Set minimum height for content container
-const setHeight = () => {
-  content.style.minHeight = (window.innerHeight - document.getElementById('header').offsetHeight) + 'px';
-};
+const setHeight = () => content.style.minHeight = (window.innerHeight - document.getElementById('header').offsetHeight) + 'px';
 
 //Set minimum height of content container initially
 setHeight();
@@ -532,4 +530,4 @@ for (let i = 0; i < selectors.length; i++){
 }
 
 //Add event listener for refresh button
-document.getElementById('refresh').addEventListener('click', () => refresh());
+document.getElementById('refresh').addEventListener('click', refresh);
