@@ -5,7 +5,9 @@ if "%confirm%"=="y" (
   git add .
   git commit -m "%message%"
   git push
+  echo.
   echo Staged, committed, and pushed changes!
 ) else (
+  echo.
   echo Process terminated.
 )
