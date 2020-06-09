@@ -8,6 +8,11 @@
   src: url(../fonts/Raleway/Raleway-Regular.ttf);
 }
 
+@font-face {
+  font-family: 'Raleway-Bold';
+  src: url(../fonts/Raleway/Raleway-SemiBold.ttf);
+}
+
 html, body {
   font-size: 16;
   height: 100%;
@@ -119,7 +124,7 @@ html, body {
 }
 
 .text-bold {
-  font-family: 'Raleway';
+  font-family: 'Raleway-Bold';
   font-size: 35px;
   color: black;
   margin-top: 22px;

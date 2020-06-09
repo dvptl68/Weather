@@ -112,8 +112,7 @@ const createHeader = data => {
   const days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
   const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
   disp.innerHTML = `Last updated: ${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}, ${date.getHours() % 12}:${date.getMinutes()}:${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}`;
-  // disp.innerHTML = date.toUTCString();
-  disp.classList.add('text');
+  disp.classList.add('text-bold');
   col.appendChild(disp);
 
   //Separator columns
@@ -140,6 +139,7 @@ const processCurrent = data => {
     return;
   }
 
+  //Add header row
   createHeader(data);
 
   //First row of content
@@ -421,6 +421,9 @@ const processMinute = data => {
     noData();
     return;
   }
+
+  //Add header row
+  createHeader(data);
 
   //Iterate through all minute forecasts
   data.minutely.forEach(element => {

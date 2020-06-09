@@ -17,7 +17,7 @@ const createWindow = () => {
   });
 
   window.loadFile('app/html/index.html');
-  // window.removeMenu();
+  window.removeMenu();
 
   window.on('ready-to-show', () => {
     window.show();
