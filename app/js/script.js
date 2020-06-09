@@ -530,3 +530,6 @@ for (let i = 0; i < selectors.length; i++){
     }
   });
 }
+
+//Add event listener for refresh button
+document.getElementById('refresh').addEventListener('click', () => refresh());
