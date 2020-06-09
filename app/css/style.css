@@ -94,7 +94,7 @@ html, body {
   margin: 0px 0px;
   margin-top: 1px;
   margin-right: -15px;
-  transition-duration: 0.5s;
+  transition-duration: 0.4s;
 }
 
 #city:hover {
