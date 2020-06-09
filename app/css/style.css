@@ -117,3 +117,10 @@ html, body {
   color: black;
   margin-top: 22px;
 }
+
+.text-bold {
+  font-family: 'Raleway';
+  font-size: 35px;
+  color: black;
+  margin-top: 22px;
+}

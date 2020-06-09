@@ -96,6 +96,41 @@ const noData = () => {
   content.appendChild(row);
 };
 
+const createHeader = data => {
+
+  //Row of content
+  const row = document.createElement('DIV');
+  row.classList.add('row');
+
+  //Column for information
+  const col = document.createElement('DIV');
+  col.classList.add('col-auto');
+  //Create paragraph for current time
+  const disp = document.createElement('P');
+  const date = new Date(data.current.dt * 1000);
+  //Arrays for days of week and months
+  const days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
+  const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
+  disp.innerHTML = `Last updated: ${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}, ${date.getHours() % 12}:${date.getMinutes()}:${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}`;
+  // disp.innerHTML = date.toUTCString();
+  disp.classList.add('text');
+  col.appendChild(disp);
+
+  //Separator columns
+  const colLeft = document.createElement('DIV');
+  colLeft.classList.add('col');
+  const colRight = document.createElement('DIV');
+  colRight.classList.add('col');
+  
+  //Append all row elements
+  row.appendChild(colLeft);
+  row.appendChild(col);
+  row.appendChild(colRight);
+
+  //Append row to content container
+  content.appendChild(row);
+};
+
 //Process and output current weather data
 const processCurrent = data => {
 
@@ -104,6 +139,8 @@ const processCurrent = data => {
     noData();
     return;
   }
+
+  createHeader(data);
 
   //First row of content
   const rowOne = document.createElement('DIV');
@@ -399,7 +436,7 @@ const processMinute = data => {
     const info = document.createElement('P');
     //Get time of forecast and precipitation amount
     const min = new Date((element.dt + data.timezone_offset) * 1000);
-    info.innerHTML = (parseInt(min.toUTCString().slice(-12, -10)) % 12) + min.toUTCString().slice(-10, -7) + ((parseInt(min.toUTCString().slice(-12, -10)) <= 12) ? " AM -" : " PM -") + " Precipitation: " + (element.precipitation * 0.0393701) + " inches";
+    info.innerHTML = (parseInt(min.toUTCString().slice(-12, -10)) % 12) + min.toUTCString().slice(-10, -7) + ((parseInt(min.toUTCString().slice(-12, -10)) < 12) ? " AM -" : " PM -") + " Precipitation: " + (element.precipitation * 0.0393701) + " inches";
     info.classList.add('text-small');
     col.appendChild(info);
 
