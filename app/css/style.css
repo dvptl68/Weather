@@ -84,6 +84,7 @@ html, body {
   font-size: 30px;
   font-family: 'Righteous';
   padding: 0px 10px;
+  padding-bottom: 1px;
   outline: 0 !important;
   margin: 0px 0px;
   margin-top: 1px;
@@ -95,6 +96,12 @@ html, body {
   background-color: #3663FF;
   border-color: #3663FF;
   color: white;
+}
+
+#refresh {
+  margin-top: -17px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 .text {
