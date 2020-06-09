@@ -111,7 +111,7 @@ const createHeader = data => {
   //Arrays for days of week and months
   const days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
   const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
-  disp.innerHTML = `Last updated: ${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}, ${date.getHours() % 12}:${date.getMinutes()}:${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}`;
+  disp.innerHTML = `Last updated: ${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}, ${date.getHours() % 12}:${(date.getMinutes() < 10) ? '0' : ''}${date.getMinutes()}:${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}`;
   disp.classList.add('text-bold');
   col.appendChild(disp);
 
