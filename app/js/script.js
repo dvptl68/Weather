@@ -69,7 +69,7 @@ const noData = () => {
   //Row of content
   const row = document.createElement('DIV');
   row.classList.add('row');
-  row.id = 'header-row';
+  row.id = 'no-border-row';
 
   //Column for information
   const col = document.createElement('DIV');
@@ -498,7 +498,7 @@ const displayLoading = () => {
   //Row of content
   const row = document.createElement('DIV');
   row.classList.add('row');
-  row.id = 'header-row';
+  row.id = 'no-border-row';
 
   //Column for information
   const col = document.createElement('DIV');
