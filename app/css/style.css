@@ -21,7 +21,7 @@ html, body {
 }
 
 [class*="container"] {
-  /* border: 2px black solid; */
+  border: 2px black solid;
   background-color: #3FC1FD;
 }
 
@@ -29,15 +29,17 @@ html, body {
   position: fixed;
   z-index: 1;
   border-bottom: 5px #3663FF solid;
+  display: none;
 }
 
 #content {
   position: absolute;
   z-index: 0;
+  display: none;
 }
 
 .row {
-  /* border: 2px red solid; */
+  border: 2px red solid;
   background-color: #3FC1FD;
   border-bottom: 3px black solid;
 }
@@ -45,13 +47,20 @@ html, body {
 #header-row { border: none; }
 
 [class*="col"] {
-  /* border: 2px blue solid; */
+  border: 2px blue solid;
   background-color: #3FC1FD;
 }
 
 #title {
   font-family: 'Righteous';
   font-size: 35px;
+  color: #3663FF;
+  margin-bottom: 0px;
+}
+
+#title-large {
+  font-family: 'Righteous';
+  font-size: 55px;
   color: #3663FF;
   margin-bottom: 0px;
 }
