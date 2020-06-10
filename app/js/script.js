@@ -11,6 +11,9 @@ const setHeight = () => {
   document.getElementById('title-large').style.marginBottom = '20px';
 };
 
+//Set intial heights
+setHeight();
+
 //Set minimum height of content container when the screen size is changed
 window.onresize = setHeight;
 
