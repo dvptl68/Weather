@@ -41,7 +41,7 @@ html, body {
 .row {
   border: 2px red solid;
   background-color: #3FC1FD;
-  border-bottom: 3px black solid;
+  /* border-bottom: 3px black solid; */
 }
 
 #header-row { border: none; }
@@ -63,6 +63,16 @@ html, body {
   font-size: 55px;
   color: #3663FF;
   margin-bottom: 0px;
+}
+
+#location {
+  padding: 12px 20px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  outline: none;
+  font-family: 'Raleway';
+  font-size: 20px;
+  width: 100%;
 }
 
 .selector {

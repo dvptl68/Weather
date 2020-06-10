@@ -6,10 +6,13 @@
 
     <!-- Title of desktop app -->
     <title>Weather</title>
+
     <!-- Required for ElectronJS -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-    <!-- Import stylesheet -->
+
+    <!-- Import custom stylesheet -->
     <link href="../css/style.css" type="text/css" rel="stylesheet">
+
     <!-- Import Bootstrap stylesheet -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,29 +24,49 @@
 
     <!-- Welcome container -->
     <div class="container-fluid" id="welcome">
+
       <!-- Title row -->
       <div class="row">
+
+        <!-- Separator column -->
+        <div class="col"></div>
+
         <!-- Title -->
         <div class="col-auto">
           <p id="title-large">Weather</p>
         </div>
+
+        <!-- Separator column -->
+        <div class="col"></div>
+
       </div>
+
       <!-- Selection row -->
       <div class="row">
 
+        <!-- Selection text box -->
+        <div class="col-5">
+          <input type="text" id="location" placeholder="Search a city or address">
+        </div>
+
       </div>
+
     </div>
 
     <!-- Header container -->
     <div class="container-fluid" id="header">
+
       <!-- Header row -->
       <div class="row" id="header-row">
+
         <!-- Title -->
         <div class="col-auto">
           <p id="title">Weather</p>
         </div>
+
         <!-- Separator column -->
         <div class="col"></div>
+
         <!-- Selector buttons -->
         <div class="col-auto">
           <button id="cur" class="selector">Current</button>
@@ -51,14 +74,18 @@
           <button id="hour" class="selector">Hourly</button>
           <button id="daily" class="selector">Daily</button>
         </div>
+
         <!-- Separator column -->
         <div class="col"></div>
-        <!-- Button to change city -->
+
+        <!-- Buttons to refresh data change city -->
         <div class="col-auto">
           <img id ="refresh" src="../images/refresh.png" title="Refresh" alt="Refresh" draggable="false">
           <button id="city">Location</button>
         </div>
+
       </div>
+
     </div>
 
     <!-- Content container -->
@@ -66,6 +93,7 @@
     
     <!-- Import JS script -->
     <script src="../js/script.js"></script>
+
   </body>
 
 </html>
