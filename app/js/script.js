@@ -11,14 +11,8 @@ const setHeight = () => {
   document.getElementById('title-large').style.marginBottom = '20px';
 };
 
-//Set minimum height of content container initially
-setHeight();
-
 //Set minimum height of content container when the screen size is changed
 window.onresize = setHeight;
-
-//Set initial position for content container
-content.style.top = document.getElementById('header').offsetHeight + 'px';
 
 //Get all selector buttons
 const selectors = document.getElementsByClassName('selector');
@@ -76,7 +70,7 @@ const noData = () => {
   //Row of content
   const row = document.createElement('DIV');
   row.classList.add('row');
-  row.id = 'no-border-row';
+  row.classList.add('no-border-row');
 
   //Column for information
   const col = document.createElement('DIV');
@@ -505,7 +499,7 @@ const displayLoading = () => {
   //Row of content
   const row = document.createElement('DIV');
   row.classList.add('row');
-  row.id = 'no-border-row';
+  row.classList.add('no-border-row');
 
   //Column for information
   const col = document.createElement('DIV');
@@ -556,7 +550,19 @@ const refresh = () => {
   });
 };
 
-refresh();
+//Change screen when the location is selected
+document.getElementById('submit').addEventListener('click', () => {
+  //Hide welcome screen
+  welcome.style.display = 'none';
+  //Display header and content
+  document.getElementById('header').style.display = 'inline-block';
+  content.style.display = 'inline-block';
+  //Set initial position for content
+  content.style.top = document.getElementById('header').offsetHeight + 'px';
+  //Set screen heights and get data
+  setHeight();
+  refresh();
+});
 
 //Add event listeners to update weather screen
 for (let i = 0; i < selectors.length; i++){
