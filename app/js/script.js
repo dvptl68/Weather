@@ -1,8 +1,15 @@
+//Get welcome container
+const welcome = document.getElementById('welcome');
 //Get content container
 const content = document.getElementById('content');
 
-//Set minimum height for content container
-const setHeight = () => content.style.minHeight = (window.innerHeight - document.getElementById('header').offsetHeight) + 'px';
+//Set appropriate heights and positions as the window resizes
+const setHeight = () => {
+  content.style.minHeight = (window.innerHeight - document.getElementById('header').offsetHeight) + 'px'
+  welcome.style.minHeight = window.innerHeight + 'px';
+  document.getElementById('title-large').style.marginTop = (Math.floor(window.innerHeight / 3)) + 'px';
+  document.getElementById('title-large').style.marginBottom = '20px';
+};
 
 //Set minimum height of content container initially
 setHeight();
@@ -248,7 +255,7 @@ const processCurrent = data => {
   colOneRowThree.classList.add('col-auto');
   //Create paragraph for wind speed
   const speed = document.createElement('P');
-  speed.innerHTML = 'Wind speed: ' + data.current.wind_speed + " mph";
+  speed.innerHTML = 'Wind speed: ' + data.current.wind_speed + ' mph';
   speed.classList.add('text');
   colOneRowThree.appendChild(speed);
 
@@ -287,7 +294,7 @@ const processCurrent = data => {
   colOneRowFour.classList.add('col-auto');
   //Create paragraph for pressure
   const pressure = document.createElement('P');
-  pressure.innerHTML = 'Pressure: ' + data.current.pressure + " hPa";
+  pressure.innerHTML = 'Pressure: ' + data.current.pressure + ' hPa';
   pressure.classList.add('text');
   colOneRowFour.appendChild(pressure);
 
@@ -296,7 +303,7 @@ const processCurrent = data => {
   colTwoRowFour.classList.add('col-auto');
   //Create paragraph for pressure
   const humidity = document.createElement('P');
-  humidity.innerHTML = 'Humidity: ' + data.current.humidity + "%";
+  humidity.innerHTML = 'Humidity: ' + data.current.humidity + '%';
   humidity.classList.add('text');
   colTwoRowFour.appendChild(humidity);
 
@@ -440,7 +447,7 @@ const processMinute = data => {
     const info = document.createElement('P');
     //Get time of forecast and precipitation amount
     const min = new Date((element.dt + data.timezone_offset) * 1000);
-    info.innerHTML = (parseInt(min.toUTCString().slice(-12, -10)) % 12) + min.toUTCString().slice(-10, -7) + ((parseInt(min.toUTCString().slice(-12, -10)) < 12) ? " AM -" : " PM -") + " Precipitation: " + (element.precipitation * 0.0393701) + " inches";
+    info.innerHTML = (parseInt(min.toUTCString().slice(-12, -10)) % 12) + min.toUTCString().slice(-10, -7) + ((parseInt(min.toUTCString().slice(-12, -10)) < 12) ? ' AM -' : ' PM -') + ' Precipitation: ' + (element.precipitation * 0.0393701) + ' inches';
     info.classList.add('text-small');
     col.appendChild(info);
 
