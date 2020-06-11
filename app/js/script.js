@@ -499,11 +499,12 @@ const processHourly = data => {
     icon.src = `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`
     icon.setAttribute('draggable', 'false');
     icon.style.marginLeft = '-30px';
+    icon.style.padding = '0px 0px';
     colIcon.appendChild(icon);
 
     //Column for other data
     const colOther = document.createElement('DIV');
-    colOther.classList.add('col-auto');
+    colOther.classList.add('col');
 
     //Row for other data
     const rowOther = document.createElement('DIV');
@@ -589,16 +590,26 @@ const processHourly = data => {
     humidity.innerHTML = 'Humidity: ' + element.humidity + '%';
     humidity.classList.add('text-extra-small');
     rowHumidity.appendChild(humidity);
-    
 
     //Append all column three data
     colThree.appendChild(rowWind);
     colThree.appendChild(rowHumidity);
 
+    //Separator columns for other data
+    const colLeft = document.createElement('DIV');
+    colLeft.classList.add('col');
+    const colMid = document.createElement('DIV');
+    colMid.classList.add('col');
+    const colRight = document.createElement('DIV');
+    colRight.classList.add('col');
+
     //Append all other row data
     rowOther.appendChild(colOne);
+    rowOther.appendChild(colLeft);
     rowOther.appendChild(colTwo);
+    rowOther.appendChild(colMid);
     rowOther.appendChild(colThree);
+    rowOther.appendChild(colRight);
 
     //Append all other column data
     colOther.appendChild(rowOther);
