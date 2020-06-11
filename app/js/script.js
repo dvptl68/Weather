@@ -537,8 +537,35 @@ const processHourly = data => {
     colOne.appendChild(rowCond);
     colOne.appendChild(rowClouds);
 
+    //Second column for other data
+    const colTwo = document.createElement('DIV');
+    colTwo.classList.add('col-auto');
+
+    //Row for temperature
+    const rowTemp = document.createElement('DIV');
+    rowTemp.classList.add('col-auto');
+    //Create paragraph for temperature
+    const temp = document.createElement('P');
+    temp.innerHTML = 'Temperature: ' + element.temp + '°F';
+    temp.classList.add('text-extra-small');
+    rowTemp.appendChild(temp);
+
+    //Row for feels like temparature
+    const rowFeels = document.createElement('DIV');
+    rowFeels.classList.add('col-auto');
+    //Create paragraph for feels like temperature
+    const feel = document.createElement('P');
+    feel.innerHTML = 'Feels like: ' + element.feels_like + '°F';
+    feel.classList.add('text-extra-small');
+    rowFeels.appendChild(feel);
+
+    //Append all column two data
+    colTwo.appendChild(rowTemp);
+    colTwo.appendChild(rowFeels);
+
     //Append all other row data
     rowOther.appendChild(colOne);
+    rowOther.appendChild(colTwo);
 
     //Append all other column data
     colOther.appendChild(rowOther);
