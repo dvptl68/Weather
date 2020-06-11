@@ -112,10 +112,9 @@ const createHeader = data => {
   //Create paragraph for current time
   const disp = document.createElement('P');
   const date = new Date(data.current.dt * 1000);
-  //Arrays for days of week and months
-  const days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
+  //Array for months
   const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
-  disp.innerHTML = `Last updated: ${days[date.getDay()]}, ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}, ${date.getHours() % 12}:${(date.getMinutes() < 10) ? '0' : ''}${date.getMinutes()}:${(date.getSeconds() < 10) ? '0' : ''}${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}`;
+  disp.innerHTML = `Last updated: ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}, ${((date.getHours() % 12) === 0) ? '12' : date.getHours() % 12}:${(date.getMinutes() < 10) ? '0' : ''}${date.getMinutes()}:${(date.getSeconds() < 10) ? '0' : ''}${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}`;
   disp.classList.add('text-bold');
   col.appendChild(disp);
 
@@ -481,7 +480,18 @@ const processHourly = data => {
     const mainRow = document.createElement('DIV');
     mainRow.classList.add('row');
 
+    //Column for current time
+    const colTime = document.createElement('DIV');
+    colTime.classList.add('col-auto');
+    const pTime = document.createElement('P');
+    const min = new Date(element.dt * 1000);
+    const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
+    pTime.innerHTML = `${((min.getHours() % 12) === 0) ? '12' : min.getHours() % 12}:${(min.getMinutes() < 10) ? '0' : ''}${min.getMinutes()} ${(min.getHours() < 12) ? 'AM' : 'PM'}, ${months[min.getMonth()]} ${min.getDate()}`;
+    pTime.classList.add('text-small');
+    colTime.appendChild(pTime);
+
     //Append all main row elements
+    mainRow.appendChild(colTime);
 
     //Append row to container
     content.appendChild(mainRow);
