@@ -444,7 +444,7 @@ const processMinute = data => {
     const info = document.createElement('P');
     //Get time of forecast and precipitation amount
     const min = new Date((element.dt + data.timezone_offset) * 1000);
-    info.innerHTML = (parseInt(min.toUTCString().slice(-12, -10)) % 12) + min.toUTCString().slice(-10, -7) + ((parseInt(min.toUTCString().slice(-12, -10)) < 12) ? ' AM -' : ' PM -') + ' Precipitation: ' + (element.precipitation * 0.0393701).toString().substr(0,5) + ' inches';
+    info.innerHTML = (parseInt(min.toUTCString().slice(-12, -10)) % 12) + min.toUTCString().slice(-10, -7) + ((parseInt(min.toUTCString().slice(-12, -10)) < 12) ? ' AM -' : ' PM -') + ' Precipitation: ' + Math.floor((element.precipitation * 0.0393701) * 1000)/1000 + ' inches';
     info.classList.add('text-small');
     col.appendChild(info);
 
@@ -472,6 +472,21 @@ const processHourly = data => {
     noData();
     return;
   }
+
+  //Add header row
+  createHeader(data);
+
+  data.hourly.forEach(element => {
+    //Main row of content
+    const mainRow = document.createElement('DIV');
+    mainRow.classList.add('row');
+
+    //Append all main row elements
+
+    //Append row to container
+    content.appendChild(mainRow);
+  });
+
 };
 
 //Process and output daily weather data
