@@ -114,7 +114,7 @@ const createHeader = data => {
   const date = new Date(data.current.dt * 1000);
   //Array for months
   const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
-  disp.innerHTML = `Last updated: ${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}, ${((date.getHours() % 12) === 0) ? '12' : date.getHours() % 12}:${(date.getMinutes() < 10) ? '0' : ''}${date.getMinutes()}:${(date.getSeconds() < 10) ? '0' : ''}${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}`;
+  disp.innerHTML = `Last updated: ${((date.getHours() % 12) === 0) ? '12' : date.getHours() % 12}:${(date.getMinutes() < 10) ? '0' : ''}${date.getMinutes()}:${(date.getSeconds() < 10) ? '0' : ''}${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}, ${months[date.getMonth()]} ${date.getDate()}`;
   disp.classList.add('text-bold');
   col.appendChild(disp);
 
@@ -486,56 +486,66 @@ const processHourly = data => {
     const pTime = document.createElement('P');
     const min = new Date(element.dt * 1000);
     const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
-    pTime.innerHTML = `${((min.getHours() % 12) === 0) ? '12' : min.getHours() % 12}:${(min.getMinutes() < 10) ? '0' : ''}${min.getMinutes()} ${(min.getHours() < 12) ? 'AM' : 'PM'}, ${months[min.getMonth()]} ${min.getDate()}`;
+    pTime.innerHTML = `${((min.getHours() % 12) === 0) ? '12' : min.getHours() % 12}:${(min.getMinutes() < 10) ? '0' : ''}${min.getMinutes()} ${(min.getHours() < 12) ? 'AM' : 'PM'}, ${months[min.getMonth()]} ${min.getDate()}:`;
     pTime.classList.add('text-small');
+    pTime.style.marginTop = '28px';
     colTime.appendChild(pTime);
+
+    //Column for icon
+    const colIcon = document.createElement('DIV');
+    colIcon.classList.add('col-auto');
+    //Create img for icon and fetch icon
+    const icon = document.createElement('IMG');
+    icon.src = `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`
+    icon.setAttribute('draggable', 'false');
+    colIcon.appendChild(icon);
 
     //Column for other data
     const colOther = document.createElement('DIV');
     colOther.classList.add('col-auto');
 
-    //First row for other data
-    const rowOne = document.createElement('DIV');
-    rowOne.classList.add('row');
-    rowOne.classList.add('no-border-row');
+    //Row for other data
+    const rowOther = document.createElement('DIV');
+    rowOther.classList.add('row');
+    rowOther.classList.add('no-border-row');
 
-    //First column, first row
-    const colOneRowOne = document.createElement('DIV');
-    colOneRowOne.classList.add('col-auto');
-    //Create img for icon and fetch icon
-    const icon = document.createElement('IMG');
-    icon.src = `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`
-    icon.setAttribute('draggable', 'false');
-    colOneRowOne.appendChild(icon);
+    //First column for other data
+    const colOne = document.createElement('DIV');
+    colOne.classList.add('col-auto');
 
-    //Second column, first row
-    const colTwoRowOne = document.createElement('DIV');
-    colTwoRowOne.classList.add('col-auto');
+    //Row for condition
+    const rowCond = document.createElement('DIV');
+    rowCond.classList.add('row');
+    rowCond.classList.add('no-border-row');
     //Create paragraph for condition
     const cond = document.createElement('P');
     cond.innerHTML = element.weather[0].description.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-    cond.classList.add('text');
-    colTwoRowOne.appendChild(cond);
+    cond.classList.add('text-extra-small');
+    rowCond.appendChild(cond);
 
-    //Third column, first row
-    const colThreeRowOne = document.createElement('DIV');
-    colThreeRowOne.classList.add('col-auto');
+    //Row for cloudiness
+    const rowClouds = document.createElement('DIV');
+    rowClouds.classList.add('row');
+    rowClouds.classList.add('no-border-row');
     //Create paragraph for clouds
     const cloud = document.createElement('P');
-    cloud.innerHTML = 'Cloudiness: ' + element.clouds + '%';
-    cloud.classList.add('text');
-    colThreeRowOne.appendChild(cloud);
+    cloud.innerHTML = 'Clouds: ' + element.clouds + '%';
+    cloud.classList.add('text-extra-small');
+    rowClouds.appendChild(cloud);
 
-    //Append all row one elements
-    rowOne.appendChild(colOneRowOne);
-    rowOne.appendChild(colTwoRowOne);
-    rowOne.appendChild(colThreeRowOne);
+    //Append all column one data
+    colOne.appendChild(rowCond);
+    colOne.appendChild(rowClouds);
+
+    //Append all other row data
+    rowOther.appendChild(colOne);
 
     //Append all other column data
-    colOther.appendChild(rowOne);
+    colOther.appendChild(rowOther);
 
     //Append all main row elements
     mainRow.appendChild(colTime);
+    mainRow.appendChild(colIcon);
     mainRow.appendChild(colOther);
 
     //Append row to container
