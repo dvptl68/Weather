@@ -498,6 +498,7 @@ const processHourly = data => {
     const icon = document.createElement('IMG');
     icon.src = `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`
     icon.setAttribute('draggable', 'false');
+    icon.style.marginLeft = '-30px';
     colIcon.appendChild(icon);
 
     //Column for other data
@@ -543,7 +544,8 @@ const processHourly = data => {
 
     //Row for temperature
     const rowTemp = document.createElement('DIV');
-    rowTemp.classList.add('col-auto');
+    rowTemp.classList.add('row');
+    rowTemp.classList.add('no-border-row');
     //Create paragraph for temperature
     const temp = document.createElement('P');
     temp.innerHTML = 'Temperature: ' + element.temp + '°F';
@@ -552,7 +554,8 @@ const processHourly = data => {
 
     //Row for feels like temparature
     const rowFeels = document.createElement('DIV');
-    rowFeels.classList.add('col-auto');
+    rowFeels.classList.add('row');
+    rowFeels.classList.add('no-border-row');
     //Create paragraph for feels like temperature
     const feel = document.createElement('P');
     feel.innerHTML = 'Feels like: ' + element.feels_like + '°F';
@@ -563,9 +566,39 @@ const processHourly = data => {
     colTwo.appendChild(rowTemp);
     colTwo.appendChild(rowFeels);
 
+    //Third column for other data
+    const colThree = document.createElement('DIV');
+    colThree.classList.add('col-auto');
+
+    //Row for wind speed
+    const rowWind = document.createElement('DIV');
+    rowWind.classList.add('row');
+    rowWind.classList.add('no-border-row');
+    //Create paragraph for wind speed
+    const speed = document.createElement('P');
+    speed.innerHTML = 'Wind speed: ' + element.wind_speed + ' mph';
+    speed.classList.add('text-extra-small');
+    rowWind.appendChild(speed);
+
+    //Row for humidity
+    const rowHumidity = document.createElement('DIV');
+    rowHumidity.classList.add('row');
+    rowHumidity.classList.add('no-border-row');
+    //Create paragraph for pressure
+    const humidity = document.createElement('P');
+    humidity.innerHTML = 'Humidity: ' + element.humidity + '%';
+    humidity.classList.add('text-extra-small');
+    rowHumidity.appendChild(humidity);
+    
+
+    //Append all column three data
+    colThree.appendChild(rowWind);
+    colThree.appendChild(rowHumidity);
+
     //Append all other row data
     rowOther.appendChild(colOne);
     rowOther.appendChild(colTwo);
+    rowOther.appendChild(colThree);
 
     //Append all other column data
     colOther.appendChild(rowOther);
