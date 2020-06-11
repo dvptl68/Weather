@@ -490,8 +490,53 @@ const processHourly = data => {
     pTime.classList.add('text-small');
     colTime.appendChild(pTime);
 
+    //Column for other data
+    const colOther = document.createElement('DIV');
+    colOther.classList.add('col-auto');
+
+    //First row for other data
+    const rowOne = document.createElement('DIV');
+    rowOne.classList.add('row');
+    rowOne.classList.add('no-border-row');
+
+    //First column, first row
+    const colOneRowOne = document.createElement('DIV');
+    colOneRowOne.classList.add('col-auto');
+    //Create img for icon and fetch icon
+    const icon = document.createElement('IMG');
+    icon.src = `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`
+    icon.setAttribute('draggable', 'false');
+    colOneRowOne.appendChild(icon);
+
+    //Second column, first row
+    const colTwoRowOne = document.createElement('DIV');
+    colTwoRowOne.classList.add('col-auto');
+    //Create paragraph for condition
+    const cond = document.createElement('P');
+    cond.innerHTML = element.weather[0].description.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+    cond.classList.add('text');
+    colTwoRowOne.appendChild(cond);
+
+    //Third column, first row
+    const colThreeRowOne = document.createElement('DIV');
+    colThreeRowOne.classList.add('col-auto');
+    //Create paragraph for clouds
+    const cloud = document.createElement('P');
+    cloud.innerHTML = 'Cloudiness: ' + element.clouds + '%';
+    cloud.classList.add('text');
+    colThreeRowOne.appendChild(cloud);
+
+    //Append all row one elements
+    rowOne.appendChild(colOneRowOne);
+    rowOne.appendChild(colTwoRowOne);
+    rowOne.appendChild(colThreeRowOne);
+
+    //Append all other column data
+    colOther.appendChild(rowOne);
+
     //Append all main row elements
     mainRow.appendChild(colTime);
+    mainRow.appendChild(colOther);
 
     //Append row to container
     content.appendChild(mainRow);
