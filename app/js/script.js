@@ -666,7 +666,7 @@ const getData = async url => {
   try {
     return await (await fetch(url)).json();
   }catch (error){
-    console.log(error);
+    displayText(error);
   }
 };
 
@@ -713,10 +713,15 @@ const refresh = () => {
   displayText();
   //Fetch data and call appropriate method to display data
   getData(`https://api.openweathermap.org/data/2.5/onecall?lat=40.095613&lon=-82.800351&units=imperial&appid=${apiKey}`).then(res => {
-    //Enable buttons
-    enableButtons(true);
     //Clear loading label
     content.innerHTML = '';
+    //Stop program  and display message if there is one with the JSON response
+    if (res.message !== undefined){
+      displayText(res.message);
+      return;
+    }
+    //Enable buttons
+    enableButtons(true);
     //Call appropriate method to fill content
     weatherData = res;
     if (selected === 'cur'){
