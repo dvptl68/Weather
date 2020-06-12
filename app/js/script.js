@@ -635,8 +635,33 @@ const processDaily = data => {
   }
 };
 
+//Method to enable/disable buttons while data is loading
+const enableButtons = enable => {
+  if (!enable){
+    for (let i = 0; i < selectors.length; i++){
+      selectors.item(i).disabled = true;
+      selectors.item(i).style.opacity = '50%';
+      selectors.item(i).style.cursor = 'default';
+    }
+    document.getElementById('city').disabled = true;
+    document.getElementById('city').style.opacity = '50%';
+    document.getElementById('city').style.cursor = 'default';
+  }else{
+    for (let i = 0; i < selectors.length; i++){
+      selectors.item(i).disabled = false;
+      selectors.item(i).style.opacity = '100%';
+      selectors.item(i).style.cursor = 'pointer';
+    }
+    document.getElementById('city').disabled = false;
+    document.getElementById('city').style.opacity = '100%';
+    document.getElementById('city').style.cursor = 'pointer';
+  }
+}
+
 //Async function that returns a promise with the acquired JSON data
 const getData = async url => {
+  //Disable buttons
+  enableButtons(false);
   //Return the data or log the error
   try {
     return await (await fetch(url)).json();
@@ -645,7 +670,7 @@ const getData = async url => {
   }
 };
 
-const displayLoading = () => {
+const displayText = (text = "Fetching Data...") => {
 
   //Row of content
   const row = document.createElement('DIV');
@@ -657,7 +682,7 @@ const displayLoading = () => {
   col.classList.add('col-auto');
   //Create paragraph for label
   const load = document.createElement('P');
-  load.innerHTML = 'Fetching Data...';
+  load.innerHTML = text;
   load.classList.add('text');
   load.style.marginTop = (Math.floor(content.clientHeight / 2.5)) + 'px';
   col.appendChild(load);
@@ -677,7 +702,6 @@ const displayLoading = () => {
   content.appendChild(row);
 }
 
-
 //API key from my account for accessing weather data
 const apiKey = 'f8abd2b386c863b278970549d4f4f4f1';
 
@@ -686,9 +710,11 @@ const refresh = () => {
   //Clear all current content
   content.innerHTML = '';
   //Display loading label
-  displayLoading();
+  displayText();
   //Fetch data and call appropriate method to display data
   getData(`https://api.openweathermap.org/data/2.5/onecall?lat=40.095613&lon=-82.800351&units=imperial&appid=${apiKey}`).then(res => {
+    //Enable buttons
+    enableButtons(true);
     //Clear loading label
     content.innerHTML = '';
     //Call appropriate method to fill content
