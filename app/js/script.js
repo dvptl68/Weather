@@ -757,6 +757,8 @@ for (let i = 0; i < selectors.length; i++){
     //Clear content and call appropriate method to fill content
     content.innerHTML = '';
     selected = event.target.id;
+    //Scroll back to top of page
+    window.scrollTo(0, 0);
     if (selected === 'cur'){
       processCurrent(weatherData);
     }else if (selected === 'min'){
