@@ -17,6 +17,15 @@ setHeight();
 //Set minimum height of content container when the screen size is changed
 window.onresize = setHeight;
 
+//Import places autocomplete module and initialize it to the search bar
+const places = require('places.js');
+const placesAutocomplete = places({
+  //Keys generated from my account
+  appId: 'plYQ0K0FOBUF',
+  apiKey: '918cd1ea57d30d4ff3e1fb60bff74dfc',
+  container: document.querySelector('#location')
+});
+
 //Get all selector buttons
 const selectors = document.getElementsByClassName('selector');
 let selected = 'cur';
