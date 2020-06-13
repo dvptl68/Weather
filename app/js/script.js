@@ -802,8 +802,41 @@ const processDaily = data => {
     humidity.classList.add('text-extra-small');
     rowHumidity.appendChild(humidity);
 
+    //Row for pressure
+    const rowPressure = document.createElement('DIV');
+    rowPressure.classList.add('row');
+    rowPressure.classList.add('no-border-row');
+    //Create paragraph for pressure
+    const pressure = document.createElement('P');
+    pressure.innerHTML = 'Pressure: ' + element.pressure + ' hPa';
+    pressure.classList.add('text-extra-small');
+    rowPressure.appendChild(pressure);
+
+    //Row for visibility
+    const rowUV = document.createElement('DIV');
+    rowUV.classList.add('row');
+    rowUV.classList.add('no-border-row');
+    //Create paragraph for visibility
+    const uv = document.createElement('P');
+    uv.innerHTML = 'UV Index: ' + element.uvi;
+    uv.classList.add('text-extra-small');
+    rowUV.appendChild(uv);
+
+    //Row for dew point
+    const rowDew = document.createElement('DIV');
+    rowDew.classList.add('row');
+    rowDew.classList.add('no-border-row');
+    //Create paragraph for visibility
+    const dew = document.createElement('P');
+    dew.innerHTML = 'Dew Point: ' + element.dew_point + '°F';
+    dew.classList.add('text-extra-small');
+    rowDew.appendChild(dew);
+
     //Append all column three data
     colThree.appendChild(rowHumidity);
+    colThree.appendChild(rowPressure);
+    colThree.appendChild(rowUV);
+    colThree.appendChild(rowDew);
 
     //Separator columns for other data
     const colLeft = document.createElement('DIV');
