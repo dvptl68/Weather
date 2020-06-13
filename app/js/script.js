@@ -742,33 +742,35 @@ const processDaily = data => {
     const colTwo = document.createElement('DIV');
     colTwo.classList.add('col-auto');
 
-    //Row for temperature
+    //Row for daily temperature
     const rowTemp = document.createElement('DIV');
     rowTemp.classList.add('row');
     rowTemp.classList.add('no-border-row');
-    //Create paragraph for temperature
+    //Create paragraph for daily temperature
     const temp = document.createElement('P');
-    temp.innerHTML = 'Temperature: ' + element.temp + '°F';
+    temp.innerHTML = 'High: ' + element.temp.max + '°F, Low: ' + element.temp.min + '°F';
     temp.classList.add('text-extra-small');
     rowTemp.appendChild(temp);
 
-    //Row for feels like temparature
-    const rowFeels = document.createElement('DIV');
-    rowFeels.classList.add('row');
-    rowFeels.classList.add('no-border-row');
-    //Create paragraph for feels like temperature
-    const feel = document.createElement('P');
-    feel.innerHTML = 'Feels like: ' + element.feels_like + '°F';
-    feel.classList.add('text-extra-small');
-    rowFeels.appendChild(feel);
+    //Row for feels like day temparature
+    const rowFeelsDay = document.createElement('DIV');
+    rowFeelsDay.classList.add('row');
+    rowFeelsDay.classList.add('no-border-row');
+    //Create paragraph for feels like day temperature
+    const feelDay = document.createElement('P');
+    feelDay.innerHTML = 'Feels like (day): ' + element.feels_like.day + '°F';
+    feelDay.classList.add('text-extra-small');
+    rowFeelsDay.appendChild(feelDay);
 
-    //Append all column two data
-    colTwo.appendChild(rowTemp);
-    colTwo.appendChild(rowFeels);
-
-    //Third column for other data
-    const colThree = document.createElement('DIV');
-    colThree.classList.add('col-auto');
+    //Row for feels like night temparature
+    const rowFeelsNight = document.createElement('DIV');
+    rowFeelsNight.classList.add('row');
+    rowFeelsNight.classList.add('no-border-row');
+    //Create paragraph for feels like day temperature
+    const feelNight = document.createElement('P');
+    feelNight.innerHTML = 'Feels like (night): ' + element.feels_like.night + '°F';
+    feelNight.classList.add('text-extra-small');
+    rowFeelsNight.appendChild(feelNight);
 
     //Row for wind speed
     const rowWind = document.createElement('DIV');
@@ -779,6 +781,16 @@ const processDaily = data => {
     speed.innerHTML = 'Wind speed: ' + element.wind_speed + ' mph';
     speed.classList.add('text-extra-small');
     rowWind.appendChild(speed);
+
+    //Append all column two data
+    colTwo.appendChild(rowTemp);
+    colTwo.appendChild(rowFeelsDay);
+    colTwo.appendChild(rowFeelsNight);
+    colTwo.appendChild(rowWind);
+
+    //Third column for other data
+    const colThree = document.createElement('DIV');
+    colThree.classList.add('col-auto');
 
     //Row for humidity
     const rowHumidity = document.createElement('DIV');
@@ -791,7 +803,6 @@ const processDaily = data => {
     rowHumidity.appendChild(humidity);
 
     //Append all column three data
-    colThree.appendChild(rowWind);
     colThree.appendChild(rowHumidity);
 
     //Separator columns for other data
