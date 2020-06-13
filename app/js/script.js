@@ -79,6 +79,7 @@ let weatherData;
 //Useful constants
 const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const windDirections = ['North','North-Northeast','Northeast','East-Northeast','East','East-Southeast','Southeast','South-Southeast','South','South-Southwest','Southwest','West-Southwest','West','West-Northwest','Northwest','North-Northwest','North'];
 
 //Display no data
 const noData = () => {
@@ -272,8 +273,6 @@ const processCurrent = data => {
   colTwoRowThree.classList.add('col-auto');
   //Create paragraph for wind direction
   const dir = document.createElement('P');
-  //Array to store wind direction values
-  const windDirections = ['North','North-Northeast','Northeast','East-Northeast','East','East-Southeast','Southeast','South-Southeast','South','South-Southwest','Southwest','West-Southwest','West','West-Northwest','Northwest','North-Northwest','North'];
   dir.innerHTML = 'Wind direction: ' + windDirections[Math.floor(data.current.wind_deg/22.5)];
   dir.classList.add('text');
   colTwoRowThree.appendChild(dir);
@@ -660,7 +659,7 @@ const processDaily = data => {
     colTime.classList.add('col-auto');
     const pTime = document.createElement('P');
     const min = new Date(element.dt * 1000);
-    pTime.innerHTML = `${days[min.getDay()]}, ${min.getDate()} ${months[min.getMonth()]} ${min.getFullYear()}: `;
+    pTime.innerHTML = `${days[min.getDay()]}, ${months[min.getMonth()]} ${min.getDate()}: `;
     pTime.classList.add('text-small');
     pTime.style.marginTop = '28px';
     colTime.appendChild(pTime);
@@ -709,9 +708,35 @@ const processDaily = data => {
     cloud.classList.add('text-extra-small');
     rowClouds.appendChild(cloud);
 
+    //Row for sunrise
+    const rowRise = document.createElement('DIV');
+    rowRise.classList.add('row');
+    rowRise.classList.add('no-border-row');
+    //Create paragraph for sunrise
+    const rise = document.createElement('P');
+    const dateOne = new Date((element.sunrise + data.timezone_offset) * 1000);
+    const timeOne = dateOne.toUTCString().slice(-12, -4)
+    rise.innerHTML = 'Sunrise: ' + ((timeOne.charAt(0) === '0') ? timeOne.substr(1) : timeOne) + ' AM';
+    rise.classList.add('text-extra-small');
+    rowRise.appendChild(rise);
+
+    //Row for sunset
+    const rowSet = document.createElement('DIV');
+    rowSet.classList.add('row');
+    rowSet.classList.add('no-border-row');
+    //Create paragraph for sunrise
+    const set = document.createElement('P');
+    const dateTwo = new Date((element.sunset + data.timezone_offset) * 1000);
+    const timeTwo = dateTwo.toUTCString().slice(-12, -4)
+    set.innerHTML = 'Sunset: ' + (parseInt(dateTwo.toUTCString().slice(-12, -10)) % 12) + dateTwo.toUTCString().slice(-10, -4) + ' PM';
+    set.classList.add('text-extra-small');
+    rowSet.appendChild(set);
+
     //Append all column one data
     colOne.appendChild(rowCond);
     colOne.appendChild(rowClouds);
+    colOne.appendChild(rowRise);
+    colOne.appendChild(rowSet);
 
     //Second column for other data
     const colTwo = document.createElement('DIV');
