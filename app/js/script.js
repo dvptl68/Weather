@@ -661,7 +661,7 @@ const processDaily = data => {
     const min = new Date(element.dt * 1000);
     pTime.innerHTML = `${days[min.getDay()]}, ${months[min.getMonth()]} ${min.getDate()}: `;
     pTime.classList.add('text-small');
-    pTime.style.marginTop = '28px';
+    pTime.style.marginTop = '70px';
     colTime.appendChild(pTime);
 
     //Column for icon
@@ -672,6 +672,7 @@ const processDaily = data => {
     icon.src = `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`
     icon.setAttribute('draggable', 'false');
     icon.style.marginLeft = '-30px';
+    icon.style.marginTop = '45px';
     icon.style.padding = '0px 0px';
     colIcon.appendChild(icon);
 
