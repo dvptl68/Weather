@@ -76,6 +76,10 @@ const addLeaveTransition = event => {
 //Object to store data
 let weatherData;
 
+//Useful constants
+const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 //Display no data
 const noData = () => {
 
@@ -122,7 +126,6 @@ const createHeader = data => {
   const disp = document.createElement('P');
   const date = new Date(data.current.dt * 1000);
   //Array for months
-  const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
   disp.innerHTML = `Last updated: ${((date.getHours() % 12) === 0) ? '12' : date.getHours() % 12}:${(date.getMinutes() < 10) ? '0' : ''}${date.getMinutes()}:${(date.getSeconds() < 10) ? '0' : ''}${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}, ${months[date.getMonth()]} ${date.getDate()}`;
   disp.classList.add('text-bold');
   col.appendChild(disp);
@@ -485,6 +488,7 @@ const processHourly = data => {
   createHeader(data);
 
   data.hourly.forEach(element => {
+
     //Main row of content
     const mainRow = document.createElement('DIV');
     mainRow.classList.add('row');
@@ -494,7 +498,6 @@ const processHourly = data => {
     colTime.classList.add('col-auto');
     const pTime = document.createElement('P');
     const min = new Date(element.dt * 1000);
-    const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
     pTime.innerHTML = `${((min.getHours() % 12) === 0) ? '12' : min.getHours() % 12}:${(min.getMinutes() < 10) ? '0' : ''}${min.getMinutes()} ${(min.getHours() < 12) ? 'AM' : 'PM'}, ${months[min.getMonth()]} ${min.getDate()}:`;
     pTime.classList.add('text-small');
     pTime.style.marginTop = '28px';
@@ -642,6 +645,158 @@ const processDaily = data => {
     noData();
     return;
   }
+
+  //Add header row
+  createHeader(data);
+
+  data.daily.forEach(element => {
+
+    //Main row of content
+    const mainRow = document.createElement('DIV');
+    mainRow.classList.add('row');
+
+    //Column for current day
+    const colTime = document.createElement('DIV');
+    colTime.classList.add('col-auto');
+    const pTime = document.createElement('P');
+    const min = new Date(element.dt * 1000);
+    pTime.innerHTML = `${days[min.getDay()]}, ${min.getDate()} ${months[min.getMonth()]} ${min.getFullYear()}: `;
+    pTime.classList.add('text-small');
+    pTime.style.marginTop = '28px';
+    colTime.appendChild(pTime);
+
+    //Column for icon
+    const colIcon = document.createElement('DIV');
+    colIcon.classList.add('col-auto');
+    //Create img for icon and fetch icon
+    const icon = document.createElement('IMG');
+    icon.src = `http://openweathermap.org/img/wn/${element.weather[0].icon}@2x.png`
+    icon.setAttribute('draggable', 'false');
+    icon.style.marginLeft = '-30px';
+    icon.style.padding = '0px 0px';
+    colIcon.appendChild(icon);
+
+    //Column for other data
+    const colOther = document.createElement('DIV');
+    colOther.classList.add('col');
+
+    //Row for other data
+    const rowOther = document.createElement('DIV');
+    rowOther.classList.add('row');
+    rowOther.classList.add('no-border-row');
+
+    //First column for other data
+    const colOne = document.createElement('DIV');
+    colOne.classList.add('col-auto');
+
+    //Row for condition
+    const rowCond = document.createElement('DIV');
+    rowCond.classList.add('row');
+    rowCond.classList.add('no-border-row');
+    //Create paragraph for condition
+    const cond = document.createElement('P');
+    cond.innerHTML = element.weather[0].description.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+    cond.classList.add('text-extra-small');
+    rowCond.appendChild(cond);
+
+    //Row for cloudiness
+    const rowClouds = document.createElement('DIV');
+    rowClouds.classList.add('row');
+    rowClouds.classList.add('no-border-row');
+    //Create paragraph for clouds
+    const cloud = document.createElement('P');
+    cloud.innerHTML = 'Clouds: ' + element.clouds + '%';
+    cloud.classList.add('text-extra-small');
+    rowClouds.appendChild(cloud);
+
+    //Append all column one data
+    colOne.appendChild(rowCond);
+    colOne.appendChild(rowClouds);
+
+    //Second column for other data
+    const colTwo = document.createElement('DIV');
+    colTwo.classList.add('col-auto');
+
+    //Row for temperature
+    const rowTemp = document.createElement('DIV');
+    rowTemp.classList.add('row');
+    rowTemp.classList.add('no-border-row');
+    //Create paragraph for temperature
+    const temp = document.createElement('P');
+    temp.innerHTML = 'Temperature: ' + element.temp + '°F';
+    temp.classList.add('text-extra-small');
+    rowTemp.appendChild(temp);
+
+    //Row for feels like temparature
+    const rowFeels = document.createElement('DIV');
+    rowFeels.classList.add('row');
+    rowFeels.classList.add('no-border-row');
+    //Create paragraph for feels like temperature
+    const feel = document.createElement('P');
+    feel.innerHTML = 'Feels like: ' + element.feels_like + '°F';
+    feel.classList.add('text-extra-small');
+    rowFeels.appendChild(feel);
+
+    //Append all column two data
+    colTwo.appendChild(rowTemp);
+    colTwo.appendChild(rowFeels);
+
+    //Third column for other data
+    const colThree = document.createElement('DIV');
+    colThree.classList.add('col-auto');
+
+    //Row for wind speed
+    const rowWind = document.createElement('DIV');
+    rowWind.classList.add('row');
+    rowWind.classList.add('no-border-row');
+    //Create paragraph for wind speed
+    const speed = document.createElement('P');
+    speed.innerHTML = 'Wind speed: ' + element.wind_speed + ' mph';
+    speed.classList.add('text-extra-small');
+    rowWind.appendChild(speed);
+
+    //Row for humidity
+    const rowHumidity = document.createElement('DIV');
+    rowHumidity.classList.add('row');
+    rowHumidity.classList.add('no-border-row');
+    //Create paragraph for pressure
+    const humidity = document.createElement('P');
+    humidity.innerHTML = 'Humidity: ' + element.humidity + '%';
+    humidity.classList.add('text-extra-small');
+    rowHumidity.appendChild(humidity);
+
+    //Append all column three data
+    colThree.appendChild(rowWind);
+    colThree.appendChild(rowHumidity);
+
+    //Separator columns for other data
+    const colLeft = document.createElement('DIV');
+    colLeft.classList.add('col');
+    const colMid = document.createElement('DIV');
+    colMid.classList.add('col');
+    const colRight = document.createElement('DIV');
+    colRight.classList.add('col');
+
+    //Append all other row data
+    rowOther.appendChild(colOne);
+    rowOther.appendChild(colLeft);
+    rowOther.appendChild(colTwo);
+    rowOther.appendChild(colMid);
+    rowOther.appendChild(colThree);
+    rowOther.appendChild(colRight);
+
+    //Append all other column data
+    colOther.appendChild(rowOther);
+
+    //Append all main row elements
+    mainRow.appendChild(colTime);
+    mainRow.appendChild(colIcon);
+    mainRow.appendChild(colOther);
+
+    //Append row to container
+    content.appendChild(mainRow);
+  });
+
 };
 
 //Method to enable/disable buttons while data is loading

@@ -33,8 +33,7 @@ const createWindow = () => {
 //Prevent links from navigating to external websites
 const URL = require('url').URL
   app.on('web-contents-created', (event, contents) => {
-    contents.on('will-navigate', (event, navigationUrl) => {
-    const parsedUrl = new URL(navigationUrl)
+    contents.on('will-navigate', event => {
     event.preventDefault();
   });
 });
