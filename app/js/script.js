@@ -23,18 +23,18 @@ const placesAutocomplete = places({
   //Keys generated from my account
   appId: 'plYQ0K0FOBUF',
   apiKey: '918cd1ea57d30d4ff3e1fb60bff74dfc',
-  container: document.querySelector('#location')
+  container: document.getElementById('location')
 });
 
 //Get submit button
 const submit = document.getElementById('submit');
 
 //Add mouse hover transition
-const mouseEnterTransition = event => event.target.style.backgroundColor = '#0431CD';
-const mouseLeaveTransition = event => event.target.style.backgroundColor = '#3663FF';
+const mouseEnterTransitionSubmit = event => event.target.style.backgroundColor = '#0431CD';
+const mouseLeaveTransitionSubmit = event => event.target.style.backgroundColor = '#3663FF';
 
 //Object to store location data
-let locationData;
+let locationData = {};
 
 //Add event listeners for places selections
 placesAutocomplete.on('change', event => {
@@ -43,8 +43,8 @@ placesAutocomplete.on('change', event => {
   //Change style of button to be enabled
   submit.style.opacity = '100%';
   submit.style.cursor = 'pointer';
-  submit.addEventListener('mouseenter', mouseEnterTransition);
-  submit.addEventListener('mouseleave', mouseLeaveTransition);
+  submit.addEventListener('mouseenter', mouseEnterTransitionSubmit);
+  submit.addEventListener('mouseleave', mouseLeaveTransitionSubmit);
 });
 
 placesAutocomplete.on('clear', () => {
@@ -53,8 +53,8 @@ placesAutocomplete.on('clear', () => {
   //Change style of button to be disabled
   submit.style.opacity = '50%';
   submit.style.cursor = 'default';
-  submit.removeEventListener('mouseenter', mouseEnterTransition);
-  submit.removeEventListener('mouseleave', mouseLeaveTransition);
+  submit.removeEventListener('mouseenter', mouseEnterTransitionSubmit);
+  submit.removeEventListener('mouseleave', mouseLeaveTransitionSubmit);
 });
 
 //Change screen when the location is selected
@@ -94,28 +94,28 @@ for (let i = 0; i < selectors.length; i++){
         event.target.style.backgroundColor = '#3663FF';
         event.target.style.color = 'white';
         event.target.style.cursor = 'default';
-        event.target.removeEventListener('mouseenter', addEnterTransition);
-        event.target.removeEventListener('mouseleave', addLeaveTransition);
+        event.target.removeEventListener('mouseenter', mouseEnterTransitionSelector);
+        event.target.removeEventListener('mouseleave', mouseLeaveTransitionSelector);
       }else{
         //Reset background of all other buttons and add hover event
         selectors.item(j).style.backgroundColor = '#3FC1FD';
         selectors.item(j).style.color = 'black';
         selectors.item(j).style.cursor = 'pointer';
-        selectors.item(j).addEventListener('mouseenter', addEnterTransition);
-        selectors.item(j).addEventListener('mouseleave', addLeaveTransition);
+        selectors.item(j).addEventListener('mouseenter', mouseEnterTransitionSelector);
+        selectors.item(j).addEventListener('mouseleave', mouseLeaveTransitionSelector);
       }
     }
   });
 }
 
 //Add mouse enter color transition
-const addEnterTransition = event => {
+const mouseEnterTransitionSelector = event => {
   event.target.style.backgroundColor = '#3663FF';
   event.target.style.color = 'white';
 };
 
 //Add mouse leave color transition
-const addLeaveTransition = event => {
+const mouseLeaveTransitionSelector = event => {
   event.target.style.backgroundColor = '#3FC1FD';
   event.target.style.color = 'black';
 };

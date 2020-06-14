@@ -32,11 +32,7 @@ const createWindow = () => {
 
 //Prevent links from navigating to external websites
 const URL = require('url').URL
-  app.on('web-contents-created', (event, contents) => {
-    contents.on('will-navigate', event => {
-    event.preventDefault();
-  });
-});
+app.on('web-contents-created', (event, contents) => contents.on('will-navigate', event => event.preventDefault()));
 
 //Quit program when window is closed unless the OS is Mac
 app.on('windows-all-closed', () => {
