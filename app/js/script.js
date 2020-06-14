@@ -33,8 +33,14 @@ const submit = document.getElementById('submit');
 const mouseEnterTransition = event => event.target.style.backgroundColor = '#0431CD';
 const mouseLeaveTransition = event => event.target.style.backgroundColor = '#3663FF';
 
+//Object to store location data
+let locationData;
+
 //Add event listeners for places selections
-placesAutocomplete.on('change', () => {
+placesAutocomplete.on('change', event => {
+  //Store the data of the picked location
+  locationData = event.suggestion;
+  //Change style of button to be enabled
   submit.style.opacity = '100%';
   submit.style.cursor = 'pointer';
   submit.addEventListener('mouseenter', mouseEnterTransition);
@@ -42,6 +48,9 @@ placesAutocomplete.on('change', () => {
 });
 
 placesAutocomplete.on('clear', () => {
+  //Delete all data from the previously picked location
+  for (let member in locationData) delete locationData[member];
+  //Change style of button to be disabled
   submit.style.opacity = '50%';
   submit.style.cursor = 'default';
   submit.removeEventListener('mouseenter', mouseEnterTransition);
@@ -50,6 +59,8 @@ placesAutocomplete.on('clear', () => {
 
 //Change screen when the location is selected
 submit.addEventListener('click', () => {
+  //End event listener if no location is picked
+  if (Object.keys(locationData).length === 0){ return; }
   //Hide welcome screen
   welcome.style.display = 'none';
   //Display header and content
@@ -109,7 +120,7 @@ const addLeaveTransition = event => {
   event.target.style.color = 'black';
 };
 
-//Object to store data
+//Object to store weather data
 let weatherData;
 
 //Useful constants
