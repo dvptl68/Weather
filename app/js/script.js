@@ -32,8 +32,21 @@ const submit = document.getElementById('submit');
 //Add mouse hover transition
 const mouseEnterTransition = event => event.target.style.backgroundColor = '#0431CD';
 const mouseLeaveTransition = event => event.target.style.backgroundColor = '#3663FF';
-// submit.addEventListener('mouseenter', mouseEnterTransition);
-// submit.addEventListener('mouseleave', mouseLeaveTransition);
+
+//Add event listeners for places selections
+placesAutocomplete.on('change', () => {
+  submit.style.opacity = '100%';
+  submit.style.cursor = 'pointer';
+  submit.addEventListener('mouseenter', mouseEnterTransition);
+  submit.addEventListener('mouseleave', mouseLeaveTransition);
+});
+
+placesAutocomplete.on('clear', () => {
+  submit.style.opacity = '50%';
+  submit.style.cursor = 'default';
+  submit.removeEventListener('mouseenter', mouseEnterTransition);
+  submit.removeEventListener('mouseleave', mouseLeaveTransition);
+});
 
 //Change screen when the location is selected
 submit.addEventListener('click', () => {
