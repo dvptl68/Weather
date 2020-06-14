@@ -87,7 +87,6 @@ html, body {
   background-color: #3663FF;
   border: none;
   color: white;
-  cursor: pointer;
   border-radius: 4px;
   text-align: center;
   font-size: 30px;
@@ -95,10 +94,7 @@ html, body {
   padding: 5px 20px;
   padding-bottom: 6px;
   outline: 0 !important;
-}
-
-#submit:hover {
-  background-color: #0431CD;
+  opacity: 50%;
 }
 
 .selector {

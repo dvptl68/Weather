@@ -26,6 +26,29 @@ const placesAutocomplete = places({
   container: document.querySelector('#location')
 });
 
+//Get submit button
+const submit = document.getElementById('submit');
+
+//Add mouse hover transition
+const mouseEnterTransition = event => event.target.style.backgroundColor = '#0431CD';
+const mouseLeaveTransition = event => event.target.style.backgroundColor = '#3663FF';
+// submit.addEventListener('mouseenter', mouseEnterTransition);
+// submit.addEventListener('mouseleave', mouseLeaveTransition);
+
+//Change screen when the location is selected
+submit.addEventListener('click', () => {
+  //Hide welcome screen
+  welcome.style.display = 'none';
+  //Display header and content
+  document.getElementById('header').style.display = 'inline-block';
+  content.style.display = 'inline-block';
+  //Set initial position for content
+  content.style.top = document.getElementById('header').offsetHeight + 'px';
+  //Set screen heights and get data
+  setHeight();
+  refresh();
+});
+
 //Get all selector buttons
 const selectors = document.getElementsByClassName('selector');
 let selected = 'cur';
@@ -969,20 +992,6 @@ const refresh = () => {
     }
   });
 };
-
-//Change screen when the location is selected
-document.getElementById('submit').addEventListener('click', () => {
-  //Hide welcome screen
-  welcome.style.display = 'none';
-  //Display header and content
-  document.getElementById('header').style.display = 'inline-block';
-  content.style.display = 'inline-block';
-  //Set initial position for content
-  content.style.top = document.getElementById('header').offsetHeight + 'px';
-  //Set screen heights and get data
-  setHeight();
-  refresh();
-});
 
 //Add event listeners to update weather screen
 for (let i = 0; i < selectors.length; i++){
