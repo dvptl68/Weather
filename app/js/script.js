@@ -167,16 +167,25 @@ const createHeader = data => {
   const row = document.createElement('DIV');
   row.classList.add('row');
 
-  //Column for information
-  const col = document.createElement('DIV');
-  col.classList.add('col-auto');
+  //Column for selected location
+  const colLoc = document.createElement('DIV');
+  colLoc.classList.add('col-auto');
+  //Create paragraph for location
+  const loc = document.createElement('P');
+  loc.innerHTML = locationData;
+  loc.classList.add('text-bold');
+  colLoc.appendChild(loc);
+
+  //Column for update information
+  const colTime = document.createElement('DIV');
+  colTime.classList.add('col-auto');
   //Create paragraph for current time
   const disp = document.createElement('P');
   const date = new Date(data.current.dt * 1000);
   //Array for months
   disp.innerHTML = `Last updated ${((date.getHours() % 12) === 0) ? '12' : date.getHours() % 12}:${(date.getMinutes() < 10) ? '0' : ''}${date.getMinutes()}:${(date.getSeconds() < 10) ? '0' : ''}${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}, ${months[date.getMonth()]} ${date.getDate()}`;
   disp.classList.add('text-bold');
-  col.appendChild(disp);
+  colTime.appendChild(disp);
 
   //Separator columns
   const colLeft = document.createElement('DIV');
@@ -185,8 +194,9 @@ const createHeader = data => {
   colRight.classList.add('col');
   
   //Append all row elements
+  row.appendChild(colLoc);
   row.appendChild(colLeft);
-  row.appendChild(col);
+  row.appendChild(colTime);
   row.appendChild(colRight);
 
   //Append row to content container
