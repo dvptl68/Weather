@@ -174,7 +174,7 @@ const createHeader = data => {
   const disp = document.createElement('P');
   const date = new Date(data.current.dt * 1000);
   //Array for months
-  disp.innerHTML = `Last updated: ${((date.getHours() % 12) === 0) ? '12' : date.getHours() % 12}:${(date.getMinutes() < 10) ? '0' : ''}${date.getMinutes()}:${(date.getSeconds() < 10) ? '0' : ''}${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}, ${months[date.getMonth()]} ${date.getDate()}`;
+  disp.innerHTML = `Last updated ${((date.getHours() % 12) === 0) ? '12' : date.getHours() % 12}:${(date.getMinutes() < 10) ? '0' : ''}${date.getMinutes()}:${(date.getSeconds() < 10) ? '0' : ''}${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}, ${months[date.getMonth()]} ${date.getDate()}`;
   disp.classList.add('text-bold');
   col.appendChild(disp);
 
