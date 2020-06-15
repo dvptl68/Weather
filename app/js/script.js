@@ -172,7 +172,7 @@ const createHeader = data => {
   colLoc.classList.add('col-auto');
   //Create paragraph for location
   const loc = document.createElement('P');
-  loc.innerHTML = locationData;
+  loc.innerHTML = locationData.name;
   loc.classList.add('text-bold');
   colLoc.appendChild(loc);
 
