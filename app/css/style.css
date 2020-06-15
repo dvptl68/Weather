@@ -9,7 +9,7 @@
 }
 
 @font-face {
-  font-family: 'Raleway-Bold';
+  font-family: 'Raleway Bold';
   src: url(../fonts/Raleway/Raleway-SemiBold.ttf);
 }
 
@@ -180,8 +180,8 @@ html, body {
 }
 
 .text-bold {
-  font-family: 'Raleway-Bold';
-  font-size: 25px;
+  font-family: 'Raleway Bold';
+  font-size: 30px;
   color: black;
   margin-top: 22px;
 }
