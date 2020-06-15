@@ -73,6 +73,17 @@ submit.addEventListener('click', () => {
   refresh();
 });
 
+//Change screen when the location is being changed
+document.getElementById('city').addEventListener('click', () => {
+  //Hide header and content
+  document.getElementById('header').style.display = 'none';
+  content.style.display = 'none';
+  //Display welcome screen
+  welcome.style.display = 'inline-block';
+  //Set screen heights
+  setHeight();
+});
+
 //Get all selector buttons
 const selectors = document.getElementsByClassName('selector');
 let selected = 'cur';
