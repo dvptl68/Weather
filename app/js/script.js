@@ -993,7 +993,7 @@ const refresh = () => {
   //Display loading label
   displayText();
   //Fetch data and call appropriate method to display data
-  getData(`https://api.openweathermap.org/data/2.5/onecall?lat=40.095613&lon=-82.800351&units=imperial&appid=${apiKey}`).then(res => {
+  getData(`https://api.openweathermap.org/data/2.5/onecall?lat=${locationData.latlng.lat}&lon=${locationData.latlng.lng}&units=imperial&appid=${apiKey}`).then(res => {
     //Clear loading label
     content.innerHTML = '';
     //Stop program  and display message if there is one with the JSON response
