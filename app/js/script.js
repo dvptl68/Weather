@@ -190,12 +190,15 @@ const createHeader = data => {
   //Separator columns
   const colLeft = document.createElement('DIV');
   colLeft.classList.add('col');
+  const colMid = document.createElement('DIV');
+  colMid.classList.add('col');
   const colRight = document.createElement('DIV');
   colRight.classList.add('col');
   
   //Append all row elements
-  row.appendChild(colLoc);
   row.appendChild(colLeft);
+  row.appendChild(colLoc);
+  row.appendChild(colMid);
   row.appendChild(colTime);
   row.appendChild(colRight);
 
