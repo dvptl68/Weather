@@ -3,16 +3,6 @@ const welcome = document.getElementById('welcome');
 //Get content container
 const content = document.getElementById('content');
 
-//Create online bootstrap element
-// const boostrapOnline = document.createElement('LINK');
-// boostrapOnline.setAttribute('rel', 'stylesheet');
-// boostrapOnline.setAttribute('href', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css');
-// boostrapOnline.setAttribute('integrity', 'sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO');
-// boostrapOnline.setAttribute('crossorigin', 'anonymous');
-// boostrapOnline.id = 'bootstrap-online';
-
-//Create local bootstrap element
-
 const checkConnection = () => {
 
   //Check if the connection is up
@@ -40,7 +30,7 @@ const checkConnection = () => {
     const disp = document.createElement('P');
     disp.innerHTML = 'Please connect to a network.';
     disp.classList.add('text-bold');
-    disp.style.marginTop = Math.floor(window.innerHeight / 2.1) + 'px';
+    disp.style.marginTop = `${Math.floor(window.innerHeight / 2.1)}px`;
     col.appendChild(disp);
 
     //Separator columns
@@ -78,19 +68,15 @@ const checkConnection = () => {
 checkConnection();
 
 //Add event listeners for connection going online or offline during application use
-window.addEventListener('online', () => {
-  checkConnection();
-});
-
-window.addEventListener('offline', () => {
-  checkConnection();
-});
+window.addEventListener('online', () => checkConnection());
+window.addEventListener('offline', () => checkConnection());
 
 //Set appropriate heights and positions as the window resizes
 const setHeight = () => {
-  content.style.minHeight = (window.innerHeight - document.getElementById('header').offsetHeight) + 'px'
-  welcome.style.minHeight = window.innerHeight + 'px';
-  document.getElementById('title-large').style.marginTop = (Math.floor(window.innerHeight / 3)) + 'px';
+
+  content.style.minHeight = `${window.innerHeight - document.getElementById('header').offsetHeight}px`
+  welcome.style.minHeight = `${window.innerHeight}px`;
+  document.getElementById('title-large').style.marginTop = `${Math.floor(window.innerHeight / 3)}px`;
   document.getElementById('title-large').style.marginBottom = '20px';
 };
 
@@ -103,6 +89,7 @@ window.onresize = setHeight;
 //Import places autocomplete module and initialize it to the search bar
 const places = require('places.js');
 const placesAutocomplete = places({
+
   //Keys generated from my account
   appId: 'plYQ0K0FOBUF',
   apiKey: '918cd1ea57d30d4ff3e1fb60bff74dfc',
@@ -121,8 +108,10 @@ let locationData = {};
 
 //Add event listeners for places selections
 placesAutocomplete.on('change', event => {
+
   //Store the data of the picked location
   locationData = event.suggestion;
+
   //Change style of button to be enabled
   submit.style.opacity = '100%';
   submit.style.cursor = 'pointer';
@@ -131,8 +120,10 @@ placesAutocomplete.on('change', event => {
 });
 
 placesAutocomplete.on('clear', () => {
+
   //Delete all data from the previously picked location
   for (let member in locationData) delete locationData[member];
+
   //Change style of button to be disabled
   submit.style.opacity = '50%';
   submit.style.cursor = 'default';
@@ -142,15 +133,20 @@ placesAutocomplete.on('clear', () => {
 
 //Change screen when the location is selected
 submit.addEventListener('click', () => {
+
   //End event listener if no location is picked
   if (Object.keys(locationData).length === 0){ return; }
+
   //Hide welcome screen
   welcome.style.display = 'none';
+
   //Display header and content
   document.getElementById('header').style.display = 'inline-block';
   content.style.display = 'inline-block';
+
   //Set initial position for content
-  content.style.top = document.getElementById('header').offsetHeight + 'px';
+  content.style.top = `${document.getElementById('header').offsetHeight}px`;
+
   //Set screen heights and get data
   setHeight();
   refresh();
@@ -158,11 +154,14 @@ submit.addEventListener('click', () => {
 
 //Change screen when the location is being changed
 document.getElementById('city').addEventListener('click', () => {
+
   //Hide header and content
   document.getElementById('header').style.display = 'none';
   content.style.display = 'none';
+
   //Display welcome screen
   welcome.style.display = 'inline-block';
+
   //Set screen heights
   setHeight();
 });
@@ -178,19 +177,26 @@ selectors.item(0).style.cursor = 'default';
 
 //Change color of clicked selector
 for (let i = 0; i < selectors.length; i++){
+
   //Listen for any of the buttons being clicked
   selectors.item(i).addEventListener('click', event => {
+
     //Set the currently selected button
     selected = event.target.id;
+
     for (let j = 0; j <selectors.length; j++){
+
       if (event.target.isSameNode(selectors.item(j))){
+
         //Change background of clicked button and remove hover event
         event.target.style.backgroundColor = '#3663FF';
         event.target.style.color = 'white';
         event.target.style.cursor = 'default';
         event.target.removeEventListener('mouseenter', mouseEnterTransitionSelector);
         event.target.removeEventListener('mouseleave', mouseLeaveTransitionSelector);
+
       }else{
+
         //Reset background of all other buttons and add hover event
         selectors.item(j).style.backgroundColor = '#3FC1FD';
         selectors.item(j).style.color = 'black';
@@ -204,12 +210,14 @@ for (let i = 0; i < selectors.length; i++){
 
 //Add mouse enter color transition
 const mouseEnterTransitionSelector = event => {
+
   event.target.style.backgroundColor = '#3663FF';
   event.target.style.color = 'white';
 };
 
 //Add mouse leave color transition
 const mouseLeaveTransitionSelector = event => {
+
   event.target.style.backgroundColor = '#3FC1FD';
   event.target.style.color = 'black';
 };
@@ -237,7 +245,7 @@ const noData = () => {
   const disp = document.createElement('P');
   disp.innerHTML = 'No data available.';
   disp.classList.add('text');
-  disp.style.marginTop = (Math.floor(content.clientHeight / 2.5)) + 'px';
+  disp.style.marginTop = `${Math.floor(content.clientHeight / 2.5)}px`;
   col.appendChild(disp);
 
   //Separator columns
@@ -261,39 +269,25 @@ const createHeader = data => {
   const row = document.createElement('DIV');
   row.classList.add('row');
 
-  //Column for selected location
-  const colLoc = document.createElement('DIV');
-  colLoc.classList.add('col-auto');
-  //Create paragraph for location
-  const loc = document.createElement('P');
-  loc.innerHTML = locationData.name;
-  loc.classList.add('text-bold');
-  colLoc.appendChild(loc);
-
-  //Column for update information
-  const colTime = document.createElement('DIV');
-  colTime.classList.add('col-auto');
-  //Create paragraph for current time
+  //Column for information
+  const col = document.createElement('DIV');
+  col.classList.add('col-auto');
+  //Create paragraph for locatiom and updated time
   const disp = document.createElement('P');
   const date = new Date(data.current.dt * 1000);
-  //Array for months
-  disp.innerHTML = `Last updated ${((date.getHours() % 12) === 0) ? '12' : date.getHours() % 12}:${(date.getMinutes() < 10) ? '0' : ''}${date.getMinutes()}:${(date.getSeconds() < 10) ? '0' : ''}${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}`;
+  disp.innerHTML = `${locationData.name} - Last updated ${((date.getHours() % 12) === 0) ? '12' : date.getHours() % 12}:${(date.getMinutes() < 10) ? '0' : ''}${date.getMinutes()}:${(date.getSeconds() < 10) ? '0' : ''}${date.getSeconds()} ${(date.getHours() < 12) ? 'AM' : 'PM'}`;
   disp.classList.add('text-bold');
-  colTime.appendChild(disp);
+  col.appendChild(disp);
 
   //Separator columns
   const colLeft = document.createElement('DIV');
   colLeft.classList.add('col');
-  const colMid = document.createElement('DIV');
-  colMid.classList.add('col');
   const colRight = document.createElement('DIV');
   colRight.classList.add('col');
   
   //Append all row elements
   row.appendChild(colLeft);
-  row.appendChild(colLoc);
-  row.appendChild(colMid);
-  row.appendChild(colTime);
+  row.appendChild(col);
   row.appendChild(colRight);
 
   //Append row to content container
@@ -339,7 +333,7 @@ const processCurrent = data => {
   colThreeRowOne.classList.add('col-auto');
   //Create paragraph for clouds
   const cloud = document.createElement('P');
-  cloud.innerHTML = 'Cloudiness: ' + data.current.clouds + '%';
+  cloud.innerHTML = `Cloudiness: ${data.current.clouds}%`;
   cloud.classList.add('text');
   colThreeRowOne.appendChild(cloud);
 
@@ -368,7 +362,7 @@ const processCurrent = data => {
   colOneRowTwo.classList.add('col-auto');
   //Create paragraph for temperature
   const temp = document.createElement('P');
-  temp.innerHTML = 'Temperature: ' + data.current.temp + '°F';
+  temp.innerHTML = `Temperature: ${data.current.temp}°F`;
   temp.classList.add('text');
   colOneRowTwo.appendChild(temp);
 
@@ -377,7 +371,7 @@ const processCurrent = data => {
   colTwoRowTwo.classList.add('col-auto');
   //Create paragraph for feels like temperature
   const feel = document.createElement('P');
-  feel.innerHTML = 'Feels like: ' + data.current.feels_like + '°F';
+  feel.innerHTML = `Feels like: ${data.current.feels_like}°F`;
   feel.classList.add('text');
   colTwoRowTwo.appendChild(feel);
 
@@ -386,7 +380,7 @@ const processCurrent = data => {
   colThreeRowTwo.classList.add('col-auto');
   //Create paragraph for dew point
   const dew = document.createElement('P');
-  dew.innerHTML = 'Dew point: ' + data.current.dew_point + '°F';
+  dew.innerHTML = `Dew point: ${data.current.dew_point}°F`;
   dew.classList.add('text');
   colThreeRowTwo.appendChild(dew);
 
@@ -418,7 +412,7 @@ const processCurrent = data => {
   colOneRowThree.classList.add('col-auto');
   //Create paragraph for wind speed
   const speed = document.createElement('P');
-  speed.innerHTML = 'Wind speed: ' + data.current.wind_speed + ' mph';
+  speed.innerHTML = `Wind speed: ${data.current.wind_speed} mph`;
   speed.classList.add('text');
   colOneRowThree.appendChild(speed);
 
@@ -427,7 +421,7 @@ const processCurrent = data => {
   colTwoRowThree.classList.add('col-auto');
   //Create paragraph for wind direction
   const dir = document.createElement('P');
-  dir.innerHTML = 'Wind direction: ' + windDirections[Math.floor(data.current.wind_deg/22.5)];
+  dir.innerHTML = `Wind direction: ${windDirections[Math.floor(data.current.wind_deg / 22.5)]}`;
   dir.classList.add('text');
   colTwoRowThree.appendChild(dir);
 
@@ -455,7 +449,7 @@ const processCurrent = data => {
   colOneRowFour.classList.add('col-auto');
   //Create paragraph for pressure
   const pressure = document.createElement('P');
-  pressure.innerHTML = 'Pressure: ' + data.current.pressure + ' hPa';
+  pressure.innerHTML = `Pressure: ${data.current.pressure} hPa`;
   pressure.classList.add('text');
   colOneRowFour.appendChild(pressure);
 
@@ -464,7 +458,7 @@ const processCurrent = data => {
   colTwoRowFour.classList.add('col-auto');
   //Create paragraph for pressure
   const humidity = document.createElement('P');
-  humidity.innerHTML = 'Humidity: ' + data.current.humidity + '%';
+  humidity.innerHTML = `Humidity: ${data.current.humidity}%`;
   humidity.classList.add('text');
   colTwoRowFour.appendChild(humidity);
 
@@ -492,7 +486,7 @@ const processCurrent = data => {
   colOneRowFive.classList.add('col-auto');
   //Create paragraph for UV index
   const uv = document.createElement('P');
-  uv.innerHTML = 'UV Index: ' + data.current.uvi;
+  uv.innerHTML = `UV Index: ${data.current.uvi}`;
   uv.classList.add('text');
   colOneRowFive.appendChild(uv);
 
@@ -501,7 +495,7 @@ const processCurrent = data => {
   colTwoRowFive.classList.add('col-auto');
   //Create paragraph for visibility
   const visibility = document.createElement('P');
-  visibility.innerHTML = 'Visibility: ' + Math.floor(data.current.visibility * 3.28084) + ' ft';
+  visibility.innerHTML = `Visibility: ${Math.floor(data.current.visibility * 3.28084)} ft`;
   visibility.classList.add('text');
   colTwoRowFive.appendChild(visibility);
 
@@ -529,7 +523,7 @@ const processCurrent = data => {
   colOneRowSix.classList.add('col-auto');
   //Create paragraph for sunrise
   const zone = document.createElement('P');
-  zone.innerHTML = 'Timezone: ' + data.timezone.replace(/_/g, ' ').substr(data.timezone.indexOf('/') + 1);
+  zone.innerHTML = `Timezone: ${data.timezone.replace(/_/g, ' ').substr(data.timezone.indexOf('/') + 1)}`;
   zone.classList.add('text');
   colOneRowSix.appendChild(zone);
 
@@ -540,7 +534,7 @@ const processCurrent = data => {
   const rise = document.createElement('P');
   const dateOne = new Date((data.current.sunrise + data.timezone_offset) * 1000);
   const timeOne = dateOne.toUTCString().slice(-12, -4)
-  rise.innerHTML = 'Sunrise: ' + ((timeOne.charAt(0) === '0') ? timeOne.substr(1) : timeOne) + ' AM';
+  rise.innerHTML = `Sunrise: ${(timeOne.charAt(0) === '0') ? timeOne.substr(1) : timeOne} AM`;
   rise.classList.add('text');
   colTwoRowSix.appendChild(rise);
 
@@ -550,7 +544,7 @@ const processCurrent = data => {
   //Create paragraph for set
   const set = document.createElement('P');
   const dateTwo = new Date((data.current.sunset + data.timezone_offset) * 1000);
-  set.innerHTML = 'Sunset: ' + (parseInt(dateTwo.toUTCString().slice(-12, -10)) % 12) + dateTwo.toUTCString().slice(-10, -4) + ' PM';
+  set.innerHTML = `Sunset: ${parseInt(dateTwo.toUTCString().slice(-12, -10)) % 12}${dateTwo.toUTCString().slice(-10, -4)} PM`;
   set.classList.add('text');
   colThreeRowSix.appendChild(set);
 
@@ -608,7 +602,7 @@ const processMinute = data => {
     const info = document.createElement('P');
     //Get time of forecast and precipitation amount
     const min = new Date((element.dt + data.timezone_offset) * 1000);
-    info.innerHTML = (parseInt(min.toUTCString().slice(-12, -10)) % 12) + min.toUTCString().slice(-10, -7) + ((parseInt(min.toUTCString().slice(-12, -10)) < 12) ? ' AM -' : ' PM -') + ' Precipitation: ' + Math.floor((element.precipitation * 0.0393701) * 1000)/1000 + ' inches';
+    info.innerHTML = `${(parseInt(min.toUTCString().slice(-12, -10)) % 12) + min.toUTCString().slice(-10, -7) + ((parseInt(min.toUTCString().slice(-12, -10)) < 12) ? ' AM -' : ' PM -')} Precipitation: ${Math.floor((element.precipitation * 0.0393701) * 1000) / 1000} inches`;
     info.classList.add('text-small');
     col.appendChild(info);
 
@@ -696,7 +690,7 @@ const processHourly = data => {
     rowClouds.classList.add('no-border-row');
     //Create paragraph for clouds
     const cloud = document.createElement('P');
-    cloud.innerHTML = 'Clouds: ' + element.clouds + '%';
+    cloud.innerHTML = `Clouds: ${element.clouds}%`;
     cloud.classList.add('text-extra-small');
     rowClouds.appendChild(cloud);
 
@@ -714,7 +708,7 @@ const processHourly = data => {
     rowTemp.classList.add('no-border-row');
     //Create paragraph for temperature
     const temp = document.createElement('P');
-    temp.innerHTML = 'Temperature: ' + element.temp + '°F';
+    temp.innerHTML = `Temperature: ${element.temp}°F`;
     temp.classList.add('text-extra-small');
     rowTemp.appendChild(temp);
 
@@ -724,7 +718,7 @@ const processHourly = data => {
     rowFeels.classList.add('no-border-row');
     //Create paragraph for feels like temperature
     const feel = document.createElement('P');
-    feel.innerHTML = 'Feels like: ' + element.feels_like + '°F';
+    feel.innerHTML = `Feels like: ${element.feels_like}°F`;
     feel.classList.add('text-extra-small');
     rowFeels.appendChild(feel);
 
@@ -742,7 +736,7 @@ const processHourly = data => {
     rowWind.classList.add('no-border-row');
     //Create paragraph for wind speed
     const speed = document.createElement('P');
-    speed.innerHTML = 'Wind speed: ' + element.wind_speed + ' mph';
+    speed.innerHTML = `Wind speed: ${element.wind_speed} mph`;
     speed.classList.add('text-extra-small');
     rowWind.appendChild(speed);
 
@@ -752,7 +746,7 @@ const processHourly = data => {
     rowHumidity.classList.add('no-border-row');
     //Create paragraph for pressure
     const humidity = document.createElement('P');
-    humidity.innerHTML = 'Humidity: ' + element.humidity + '%';
+    humidity.innerHTML = `Humidity: ${element.humidity}%`;
     humidity.classList.add('text-extra-small');
     rowHumidity.appendChild(humidity);
 
@@ -859,7 +853,7 @@ const processDaily = data => {
     rowClouds.classList.add('no-border-row');
     //Create paragraph for clouds
     const cloud = document.createElement('P');
-    cloud.innerHTML = 'Clouds: ' + element.clouds + '%';
+    cloud.innerHTML = `Clouds: ${element.clouds}%`;
     cloud.classList.add('text-extra-small');
     rowClouds.appendChild(cloud);
 
@@ -871,7 +865,7 @@ const processDaily = data => {
     const rise = document.createElement('P');
     const dateOne = new Date((element.sunrise + data.timezone_offset) * 1000);
     const timeOne = dateOne.toUTCString().slice(-12, -4)
-    rise.innerHTML = 'Sunrise: ' + ((timeOne.charAt(0) === '0') ? timeOne.substr(1) : timeOne) + ' AM';
+    rise.innerHTML = `Sunrise: ${(timeOne.charAt(0) === '0') ? timeOne.substr(1) : timeOne} AM`;
     rise.classList.add('text-extra-small');
     rowRise.appendChild(rise);
 
@@ -883,7 +877,7 @@ const processDaily = data => {
     const set = document.createElement('P');
     const dateTwo = new Date((element.sunset + data.timezone_offset) * 1000);
     const timeTwo = dateTwo.toUTCString().slice(-12, -4)
-    set.innerHTML = 'Sunset: ' + (parseInt(dateTwo.toUTCString().slice(-12, -10)) % 12) + dateTwo.toUTCString().slice(-10, -4) + ' PM';
+    set.innerHTML = `Sunset: ${parseInt(dateTwo.toUTCString().slice(-12, -10)) % 12}${dateTwo.toUTCString().slice(-10, -4)} PM`;
     set.classList.add('text-extra-small');
     rowSet.appendChild(set);
 
@@ -903,7 +897,7 @@ const processDaily = data => {
     rowTemp.classList.add('no-border-row');
     //Create paragraph for daily temperature
     const temp = document.createElement('P');
-    temp.innerHTML = 'High: ' + element.temp.max + '°F, Low: ' + element.temp.min + '°F';
+    temp.innerHTML = `High: ${element.temp.max}°F, Low: ${element.temp.min}°F`;
     temp.classList.add('text-extra-small');
     rowTemp.appendChild(temp);
 
@@ -913,7 +907,7 @@ const processDaily = data => {
     rowFeelsDay.classList.add('no-border-row');
     //Create paragraph for feels like day temperature
     const feelDay = document.createElement('P');
-    feelDay.innerHTML = 'Feels like (day): ' + element.feels_like.day + '°F';
+    feelDay.innerHTML = `Feels like (day): ${element.feels_like.day}°F`;
     feelDay.classList.add('text-extra-small');
     rowFeelsDay.appendChild(feelDay);
 
@@ -923,7 +917,7 @@ const processDaily = data => {
     rowFeelsNight.classList.add('no-border-row');
     //Create paragraph for feels like day temperature
     const feelNight = document.createElement('P');
-    feelNight.innerHTML = 'Feels like (night): ' + element.feels_like.night + '°F';
+    feelNight.innerHTML = `Feels like (night): ${element.feels_like.night}°F`;
     feelNight.classList.add('text-extra-small');
     rowFeelsNight.appendChild(feelNight);
 
@@ -933,7 +927,7 @@ const processDaily = data => {
     rowWind.classList.add('no-border-row');
     //Create paragraph for wind speed
     const speed = document.createElement('P');
-    speed.innerHTML = 'Wind speed: ' + element.wind_speed + ' mph';
+    speed.innerHTML = `Wind speed: ${element.wind_speed} mph`;
     speed.classList.add('text-extra-small');
     rowWind.appendChild(speed);
 
@@ -953,7 +947,7 @@ const processDaily = data => {
     rowHumidity.classList.add('no-border-row');
     //Create paragraph for pressure
     const humidity = document.createElement('P');
-    humidity.innerHTML = 'Humidity: ' + element.humidity + '%';
+    humidity.innerHTML = `Humidity: ${element.humidity}%`;
     humidity.classList.add('text-extra-small');
     rowHumidity.appendChild(humidity);
 
@@ -963,7 +957,7 @@ const processDaily = data => {
     rowPressure.classList.add('no-border-row');
     //Create paragraph for pressure
     const pressure = document.createElement('P');
-    pressure.innerHTML = 'Pressure: ' + element.pressure + ' hPa';
+    pressure.innerHTML = `Pressure: ${element.pressure} hPa`;
     pressure.classList.add('text-extra-small');
     rowPressure.appendChild(pressure);
 
@@ -973,7 +967,7 @@ const processDaily = data => {
     rowUV.classList.add('no-border-row');
     //Create paragraph for visibility
     const uv = document.createElement('P');
-    uv.innerHTML = 'UV Index: ' + element.uvi;
+    uv.innerHTML = `UV Index: ${element.uvi}`;
     uv.classList.add('text-extra-small');
     rowUV.appendChild(uv);
 
@@ -983,7 +977,7 @@ const processDaily = data => {
     rowDew.classList.add('no-border-row');
     //Create paragraph for visibility
     const dew = document.createElement('P');
-    dew.innerHTML = 'Dew Point: ' + element.dew_point + '°F';
+    dew.innerHTML = `Dew Point: ${element.dew_point}°F`;
     dew.classList.add('text-extra-small');
     rowDew.appendChild(dew);
 
@@ -1025,21 +1019,27 @@ const processDaily = data => {
 
 //Method to enable/disable buttons while data is loading
 const enableButtons = enable => {
+
   if (!enable){
+
     for (let i = 0; i < selectors.length; i++){
       selectors.item(i).disabled = true;
       selectors.item(i).style.opacity = '50%';
       selectors.item(i).style.cursor = 'default';
     }
+
     document.getElementById('city').disabled = true;
     document.getElementById('city').style.opacity = '50%';
     document.getElementById('city').style.cursor = 'default';
+
   }else{
+
     for (let i = 0; i < selectors.length; i++){
       selectors.item(i).disabled = false;
       selectors.item(i).style.opacity = '100%';
       selectors.item(i).style.cursor = 'pointer';
     }
+
     document.getElementById('city').disabled = false;
     document.getElementById('city').style.opacity = '100%';
     document.getElementById('city').style.cursor = 'pointer';
@@ -1048,10 +1048,14 @@ const enableButtons = enable => {
 
 //Async function that returns a promise with the acquired JSON data
 const getData = async url => {
+
   //Return the data or display the error
   try {
+
     return await (await fetch(url)).json();
+
   }catch (error){
+
     displayText(error);
   }
 };
@@ -1070,7 +1074,7 @@ const displayText = (text = "Fetching Data...") => {
   const load = document.createElement('P');
   load.innerHTML = text;
   load.classList.add('text');
-  load.style.marginTop = (Math.floor(content.clientHeight / 2.5)) + 'px';
+  load.style.marginTop = `${Math.floor(content.clientHeight / 2.5)}px`;
   col.appendChild(load);
 
   //Separator columns
@@ -1093,32 +1097,48 @@ const apiKey = 'f8abd2b386c863b278970549d4f4f4f1';
 
 //Fetch all weather data
 const refresh = () => {
+
   //Clear all current content
   content.innerHTML = '';
+
   //Disable buttons
   enableButtons(false);
+
   //Display loading label
   displayText();
+
   //Fetch data and call appropriate method to display data
   getData(`https://api.openweathermap.org/data/2.5/onecall?lat=${locationData.latlng.lat}&lon=${locationData.latlng.lng}&units=imperial&appid=${apiKey}`).then(res => {
+
     //Clear loading label
     content.innerHTML = '';
-    //Stop program  and display message if there is one with the JSON response
+
+    //Stop program  and display message if it exists with the JSON response
     if (res.message !== undefined){
       displayText(res.message);
       return;
     }
+
     //Enable buttons
     enableButtons(true);
+
     //Call appropriate method to fill content
     weatherData = res;
+
     if (selected === 'cur'){
+
       processCurrent(weatherData);
+
     }else if (selected === 'min'){
+
       processMinute(weatherData);
+
     }else if (selected === 'hour'){
+
       processHourly(weatherData);
+
     }else{
+
       processDaily(weatherData);
     }
   });
@@ -1126,20 +1146,31 @@ const refresh = () => {
 
 //Add event listeners to update weather screen
 for (let i = 0; i < selectors.length; i++){
+
   //Listen for any of the buttons being clicked
   selectors.item(i).addEventListener('click', event => {
+
     //Clear content and call appropriate method to fill content
     content.innerHTML = '';
     selected = event.target.id;
+
     //Scroll back to top of page
     window.scrollTo(0, 0);
+
     if (selected === 'cur'){
+
       processCurrent(weatherData);
+
     }else if (selected === 'min'){
+
       processMinute(weatherData);
+
     }else if (selected === 'hour'){
+
       processHourly(weatherData);
+
     }else{
+      
       processDaily(weatherData);
     }
   });
