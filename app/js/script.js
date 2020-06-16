@@ -3,6 +3,21 @@ const welcome = document.getElementById('welcome');
 //Get content container
 const content = document.getElementById('content');
 
+//Set appropriate heights and positions as the window resizes
+const setHeight = () => {
+
+  content.style.minHeight = `${window.innerHeight - document.getElementById('header').offsetHeight}px`
+  welcome.style.minHeight = `${window.innerHeight}px`;
+  document.getElementById('title-large').style.marginTop = `${Math.floor(window.innerHeight / 3)}px`;
+  document.getElementById('title-large').style.marginBottom = '20px';
+};
+
+//Set intial heights
+setHeight();
+
+//Set minimum height of content container when the screen size is changed
+window.onresize = setHeight;
+
 const checkConnection = () => {
 
   //Check if the connection is up
@@ -12,6 +27,7 @@ const checkConnection = () => {
     welcome.removeAttribute('style');
     document.getElementById('header').style.display = 'none';
     content.style.display = 'none';
+    setHeight();
 
     //Hide previous welcome content
     welcome.children[0].style.display = 'none';
@@ -56,6 +72,7 @@ const checkConnection = () => {
       welcome.removeAttribute('style');
       document.getElementById('header').style.display = 'none';
       content.style.display = 'none';
+      setHeight();
 
       //Display default welcome elements
       welcome.children[0].removeAttribute('style');
@@ -70,21 +87,6 @@ checkConnection();
 //Add event listeners for connection going online or offline during application use
 window.addEventListener('online', () => checkConnection());
 window.addEventListener('offline', () => checkConnection());
-
-//Set appropriate heights and positions as the window resizes
-const setHeight = () => {
-
-  content.style.minHeight = `${window.innerHeight - document.getElementById('header').offsetHeight}px`
-  welcome.style.minHeight = `${window.innerHeight}px`;
-  document.getElementById('title-large').style.marginTop = `${Math.floor(window.innerHeight / 3)}px`;
-  document.getElementById('title-large').style.marginBottom = '20px';
-};
-
-//Set intial heights
-setHeight();
-
-//Set minimum height of content container when the screen size is changed
-window.onresize = setHeight;
 
 //Import places autocomplete module and initialize it to the search bar
 const places = require('places.js');
