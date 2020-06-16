@@ -21,7 +21,7 @@ const createWindow = () => {
 
   //Load HTML and remove developer menu
   window.loadFile('app/html/index.html');
-  window.removeMenu();
+  // window.removeMenu();
 
   //Show window and focus when app is loaded
   window.on('ready-to-show', () => {

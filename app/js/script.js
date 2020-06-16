@@ -4,8 +4,15 @@ const welcome = document.getElementById('welcome');
 const content = document.getElementById('content');
 
 const checkConnection = () => {
+
   //Check if the connection is up
   if (!navigator.onLine){
+
+    //Show and hide specific containers
+    welcome.style.display = 'inline-block';
+    document.getElementById('header').style.display = 'none';
+    content.style.display = 'none';
+
     //Hide previous welcome content
     welcome.children[0].style.display = 'none';
     welcome.children[1].style.display = 'none';
@@ -14,6 +21,7 @@ const checkConnection = () => {
     const row = document.createElement('DIV');
     row.classList.add('row');
     row.classList.add('no-border-row');
+    row.id = 'no-connection';
 
     //Column to display text
     const col = document.createElement('DIV');
@@ -22,11 +30,31 @@ const checkConnection = () => {
     const disp = document.createElement('P');
     disp.innerHTML = 'Please connect to a network and press enter to try again.';
     disp.classList.add('text-bold');
+    disp.style.marginTop = Math.floor(window.innerHeight / 2.1) + 'px';
     col.appendChild(disp);
 
+    //Separator columns
+    const colLeft = document.createElement('DIV');
+    colLeft.classList.add('col');
+    const colRight = document.createElement('DIV');
+    colRight.classList.add('col');
+
     //Append all elements
+    row.appendChild(colLeft);
     row.appendChild(col);
+    row.appendChild(colRight);
     welcome.appendChild(row);
+
+  } else {
+
+    //Remove no connection message
+    if (document.getElementById('no-connection') !== null) {
+      document.getElementById('no-connection').remove();
+      //Display default welcome elements
+      welcome.children[0].style.display = 'default';
+      welcome.children[1].style.display = 'default';
+    }
+
   }
 }
 
@@ -48,7 +76,6 @@ window.onresize = setHeight;
 
 //Import places autocomplete module and initialize it to the search bar
 const places = require('places.js');
-const { BrowserWindowProxy } = require('electron');
 const placesAutocomplete = places({
   //Keys generated from my account
   appId: 'plYQ0K0FOBUF',
