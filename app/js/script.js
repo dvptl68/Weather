@@ -3,13 +3,23 @@ const welcome = document.getElementById('welcome');
 //Get content container
 const content = document.getElementById('content');
 
+//Create online bootstrap element
+// const boostrapOnline = document.createElement('LINK');
+// boostrapOnline.setAttribute('rel', 'stylesheet');
+// boostrapOnline.setAttribute('href', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css');
+// boostrapOnline.setAttribute('integrity', 'sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO');
+// boostrapOnline.setAttribute('crossorigin', 'anonymous');
+// boostrapOnline.id = 'bootstrap-online';
+
+//Create local bootstrap element
+
 const checkConnection = () => {
 
   //Check if the connection is up
   if (!navigator.onLine){
 
     //Show and hide specific containers
-    welcome.style.display = 'inline-block';
+    welcome.removeAttribute('style');
     document.getElementById('header').style.display = 'none';
     content.style.display = 'none';
 
@@ -28,7 +38,7 @@ const checkConnection = () => {
     col.classList.add('col-auto');
     //Text to display
     const disp = document.createElement('P');
-    disp.innerHTML = 'Please connect to a network and press enter to try again.';
+    disp.innerHTML = 'Please connect to a network.';
     disp.classList.add('text-bold');
     disp.style.marginTop = Math.floor(window.innerHeight / 2.1) + 'px';
     col.appendChild(disp);
@@ -46,19 +56,35 @@ const checkConnection = () => {
     welcome.appendChild(row);
 
   } else {
-
-    //Remove no connection message
+    
     if (document.getElementById('no-connection') !== null) {
-      document.getElementById('no-connection').remove();
-      //Display default welcome elements
-      welcome.children[0].style.display = 'default';
-      welcome.children[1].style.display = 'default';
-    }
 
+      //Remove no connection message
+      document.getElementById('no-connection').remove();
+
+      //Show and hide specific containers
+      welcome.removeAttribute('style');
+      document.getElementById('header').style.display = 'none';
+      content.style.display = 'none';
+
+      //Display default welcome elements
+      welcome.children[0].removeAttribute('style');
+      welcome.children[1].removeAttribute('style');
+    }
   }
 }
 
+//Check connection upon program start
 checkConnection();
+
+//Add event listeners for connection going online or offline during application use
+window.addEventListener('online', () => {
+  checkConnection();
+});
+
+window.addEventListener('offline', () => {
+  checkConnection();
+});
 
 //Set appropriate heights and positions as the window resizes
 const setHeight = () => {
