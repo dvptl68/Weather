@@ -3,6 +3,35 @@ const welcome = document.getElementById('welcome');
 //Get content container
 const content = document.getElementById('content');
 
+const checkConnection = () => {
+  //Check if the connection is up
+  if (!navigator.onLine){
+    //Hide previous welcome content
+    welcome.children[0].style.display = 'none';
+    welcome.children[1].style.display = 'none';
+
+    //Row of content
+    const row = document.createElement('DIV');
+    row.classList.add('row');
+    row.classList.add('no-border-row');
+
+    //Column to display text
+    const col = document.createElement('DIV');
+    col.classList.add('col-auto');
+    //Text to display
+    const disp = document.createElement('P');
+    disp.innerHTML = 'Please connect to a network and press enter to try again.';
+    disp.classList.add('text-bold');
+    col.appendChild(disp);
+
+    //Append all elements
+    row.appendChild(col);
+    welcome.appendChild(row);
+  }
+}
+
+checkConnection();
+
 //Set appropriate heights and positions as the window resizes
 const setHeight = () => {
   content.style.minHeight = (window.innerHeight - document.getElementById('header').offsetHeight) + 'px'
@@ -19,6 +48,7 @@ window.onresize = setHeight;
 
 //Import places autocomplete module and initialize it to the search bar
 const places = require('places.js');
+const { BrowserWindowProxy } = require('electron');
 const placesAutocomplete = places({
   //Keys generated from my account
   appId: 'plYQ0K0FOBUF',
@@ -965,9 +995,7 @@ const enableButtons = enable => {
 
 //Async function that returns a promise with the acquired JSON data
 const getData = async url => {
-  //Disable buttons
-  enableButtons(false);
-  //Return the data or log the error
+  //Return the data or display the error
   try {
     return await (await fetch(url)).json();
   }catch (error){
@@ -1014,6 +1042,8 @@ const apiKey = 'f8abd2b386c863b278970549d4f4f4f1';
 const refresh = () => {
   //Clear all current content
   content.innerHTML = '';
+  //Disable buttons
+  enableButtons(false);
   //Display loading label
   displayText();
   //Fetch data and call appropriate method to display data
