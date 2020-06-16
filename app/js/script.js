@@ -603,8 +603,8 @@ const processMinute = data => {
     //Create paragraph for time
     const info = document.createElement('P');
     //Get time of forecast and precipitation amount
-    const min = new Date((element.dt + data.timezone_offset) * 1000);
-    info.innerHTML = `${(parseInt(min.toUTCString().slice(-12, -10)) % 12) + min.toUTCString().slice(-10, -7) + ((parseInt(min.toUTCString().slice(-12, -10)) < 12) ? ' AM -' : ' PM -')} Precipitation: ${Math.floor((element.precipitation * 0.0393701) * 1000) / 1000} inches`;
+    const min = new Date(element.dt * 1000);
+    info.innerHTML = `${((min.getHours() % 12) === 0) ? '12' : min.getHours() % 12}:${(min.getMinutes() < 10) ? '0' : ''}${min.getMinutes()} ${(min.getHours() < 12) ? 'AM' : 'PM'} - Precipitation: ${Math.floor((element.precipitation * 0.0393701) * 1000) / 1000} inches`;
     info.classList.add('text-small');
     col.appendChild(info);
 
@@ -979,7 +979,7 @@ const processDaily = data => {
     rowDew.classList.add('no-border-row');
     //Create paragraph for visibility
     const dew = document.createElement('P');
-    dew.innerHTML = `Dew Point: ${element.dew_point}°F`;
+    dew.innerHTML = `Dew point: ${element.dew_point}°F`;
     dew.classList.add('text-extra-small');
     rowDew.appendChild(dew);
 
