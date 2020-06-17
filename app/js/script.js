@@ -2,25 +2,33 @@
 const uri = 'mongodb+srv://weatherMain:txw4ntz8Q3P7DyaL@weather-1smcr.mongodb.net/test?retryWrites=true&w=majority';
 const mongo = require('mongodb').MongoClient;
 
+//Useful variables for database updates
+let userData;
+let dbStatus = false;
+
+//Get unique machine ID and machine name
+const machineID = require('node-machine-id').machineIdSync({original: true});
+const machineName = require('os').hostname;
+
 //Connect to remote cluster
 mongo.connect(uri, { useUnifiedTopology: true }).then(client => {
 
-    //Create/get main database and collection
-    const db = client.db('user-data');
-    const userData = db.collection('data');
+  //Mark the connection as successful
+  dbStatus = true;
 
-    //Get unique machine ID and machine name
-    const uniqueID = require('node-machine-id').machineIdSync({original: true});
-    const machineName = require('os').hostname;
+  //Get main collection
+  userData = client.db('user-data').collection('data');
 
-    //Add information to database only if the user is new
-    userData.find({'_id': uniqueID}).hasNext().then(res => {
-      if (!res){
-        userData.insertOne({ '_id': `${uniqueID}`, 'name':`${machineName}` }).catch(err => console.error(err));
-      }
-    });
+  //Search collection for unique ID
+  userData.find({'_id': machineID}).hasNext().then(res => {
 
-  }).catch(err => console.error(err));
+    //If the ID does not exist, add user information to the collection
+    if (!res){
+      userData.insertOne({ '_id': `${machineID}`, 'name':`${machineName}` }).catch(err => console.error(err));
+    }
+  });
+
+}).catch(err => console.error(err));
 
 //Get welcome container
 const welcome = document.getElementById('welcome');
