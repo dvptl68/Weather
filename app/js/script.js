@@ -24,11 +24,20 @@ mongo.connect(uri, { useUnifiedTopology: true }).then(client => {
 
     //If the ID does not exist, add user information to the collection
     if (!res){
-      userData.insertOne({ '_id': `${machineID}`, 'name':`${machineName}` }).catch(err => console.error(err));
+
+      userData.insertOne({ '_id': `${machineID}`, 'name':`${machineName}` }).catch(err => {
+
+        //Notify user in case of failure
+        new Notification('Weather', { body: `Failed to communicate with database. Your data will not be stored.\n${err}` });
+        
+        //Mark the connection as failed
+        dbStatus = true;
+      });
     }
   });
 
-}).catch(err => console.error(err));
+//Notify user in case of failure
+}).catch(err => new Notification('Weather', { body: `Failed to connect to database. Your data will not be stored.\n${err}` }));
 
 //Get welcome container
 const welcome = document.getElementById('welcome');
