@@ -3,15 +3,22 @@ const uri = 'mongodb+srv://weatherMain:txw4ntz8Q3P7DyaL@weather-1smcr.mongodb.ne
 const mongo = require('mongodb').MongoClient;
 
 //Connect to remote cluster
-mongo.connect(uri, { useUnifiedTopology: true })
-  .then(client => {
+mongo.connect(uri, { useUnifiedTopology: true }).then(client => {
 
     //Create/get main database and collection
     const db = client.db('user-data');
-    const userData = db.collection('data')
+    const userData = db.collection('data');
 
-    //Insert unique machineID along with machine name into collection
-    userData.insertOne({ '_id': `${require('node-machine-id').machineIdSync({original: true})}`, 'name':`${require('os').hostname}` }).catch(err => console.error(err));
+    //Get unique machine ID and machine name
+    const uniqueID = require('node-machine-id').machineIdSync({original: true});
+    const machineName = require('os').hostname;
+
+    //Add information to database only if the user is new
+    userData.find({'_id': uniqueID}).hasNext().then(res => {
+      if (!res){
+        userData.insertOne({ '_id': `${uniqueID}`, 'name':`${machineName}` }).catch(err => console.error(err));
+      }
+    });
 
   }).catch(err => console.error(err));
 
