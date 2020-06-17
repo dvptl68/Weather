@@ -1,12 +1,19 @@
+///Connection string for remote MongoDB cluster
 const uri = 'mongodb+srv://weatherMain:txw4ntz8Q3P7DyaL@weather-1smcr.mongodb.net/test?retryWrites=true&w=majority';
 const mongo = require('mongodb').MongoClient
 
+//Connect to remote cluster
 mongo.connect(uri, { useUnifiedTopology: true })
   .then(client => {
-    console.log('Connected to Database')
-  }).catch(error => {
-    console.error(error)
-  });
+
+    //Create/get main database and collection
+    const db = client.db('user-data');
+    const userData = db.collection('data')
+
+    //Insert unique machineID into collection
+    userData.insertOne({ '_id':'object1' }).catch(err => console.error(err));
+
+  }).catch(err => console.error(err));
 
 //Get welcome container
 const welcome = document.getElementById('welcome');
@@ -100,6 +107,7 @@ window.addEventListener('offline', () => checkConnection());
 
 //Import places autocomplete module and initialize it to the search bar
 const places = require('places.js');
+const { app } = require('electron');
 const placesAutocomplete = places({
 
   //Keys generated from my account
