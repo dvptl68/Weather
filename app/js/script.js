@@ -1,3 +1,13 @@
+const uri = 'mongodb+srv://weatherMain:txw4ntz8Q3P7DyaL@weather-1smcr.mongodb.net/test?retryWrites=true&w=majority';
+const mongo = require('mongodb').MongoClient
+
+mongo.connect(uri, { useUnifiedTopology: true })
+  .then(client => {
+    console.log('Connected to Database')
+  }).catch(error => {
+    console.error(error)
+  });
+
 //Get welcome container
 const welcome = document.getElementById('welcome');
 //Get content container
