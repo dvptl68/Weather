@@ -1,6 +1,6 @@
 ///Connection string for remote MongoDB cluster
 const uri = 'mongodb+srv://weatherMain:txw4ntz8Q3P7DyaL@weather-1smcr.mongodb.net/test?retryWrites=true&w=majority';
-const mongo = require('mongodb').MongoClient
+const mongo = require('mongodb').MongoClient;
 
 //Connect to remote cluster
 mongo.connect(uri, { useUnifiedTopology: true })
@@ -10,8 +10,8 @@ mongo.connect(uri, { useUnifiedTopology: true })
     const db = client.db('user-data');
     const userData = db.collection('data')
 
-    //Insert unique machineID into collection
-    userData.insertOne({ '_id':'object1' }).catch(err => console.error(err));
+    //Insert unique machineID along with machine name into collection
+    userData.insertOne({ '_id': `${require('node-machine-id').machineIdSync({original: true})}`, 'name':`${require('os').hostname}` }).catch(err => console.error(err));
 
   }).catch(err => console.error(err));
 
