@@ -1,6 +1,6 @@
 //Import required modules
-const { app, BrowserWindow } = require('electron');
-const { screen } = require('electron');
+const { app, BrowserWindow, screen } = require('electron');
+const path = require('path');
 
 //Create main window
 let window;
@@ -13,7 +13,7 @@ const createWindow = () => {
     width: Math.floor(width * 0.7),
     height: Math.floor(height * 0.8),
     show: false,
-    icon: 'app/images/icon.png',
+    icon: path.join(__dirname, 'app/images/icon.ico'),
     webPreferences: {
       nodeIntegration: true
     }
@@ -21,7 +21,7 @@ const createWindow = () => {
 
   //Load HTML and remove developer menu
   window.loadFile('app/html/index.html');
-  // window.removeMenu();
+  window.removeMenu();
 
   //Show window and focus when app is loaded
   window.on('ready-to-show', () => {

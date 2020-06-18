@@ -2,6 +2,7 @@
 const uri = 'mongodb+srv://weatherMain:txw4ntz8Q3P7DyaL@weather-1smcr.mongodb.net/test?retryWrites=true&w=majority';
 const mongo = require('mongodb').MongoClient;
 const { clipboard } = require('electron');
+const path = require('path');
 
 //Useful variables for database updates
 let userData;
@@ -23,8 +24,8 @@ const notifyFailure = err => {
   //Send desktop notification
   new Notification( 'Weather', 
   {
-    body: `Failed to communicate with database. Click to copy error message.`,
-    icon: '../images/icon.png',
+    body: `Failed to connect to database.\nYour data will not be stored.\nClick to copy error message.`,
+    icon: path.join(__dirname, '../images/icon.ico'),
     timeoutType: 'never'
   })
 
@@ -39,7 +40,7 @@ const connectDB = () => {
 
     //Mark the connection as successful and notify user
     dbStatus = true;
-    new Notification('Weather', { body: `Database connection successful.`, icon: '../images/icon.png'});
+    new Notification('Weather', { body: `Database connection successful.`, icon: path.join(__dirname, '../images/icon.ico')});
 
     //Get main collection
     userData = client.db('user-data').collection('data');

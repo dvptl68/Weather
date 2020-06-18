@@ -8,7 +8,8 @@
   "description": "A desktop application that allows you to check the weather anywhere",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package-all": "electron-packager . --overwrite --asar -all --icon=app/images/icon.ico --ignore=scripts --out=builds"
   },
   "author": "Dev Patel",
   "license": "ISC",
