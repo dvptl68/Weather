@@ -17,6 +17,9 @@ const machineName = require('os').hostname;
 //Function for failure notifications
 const notifyFailure = err => {
 
+  //Mark connection as failed
+  dbStatus = false;
+
   //Send desktop notification
   new Notification( 'Weather', 
   {
@@ -27,44 +30,51 @@ const notifyFailure = err => {
 
   //Copy error message to clipboard when clicked
   .onclick = () => clipboard.writeText(`${err.toString().slice(0, err.toString().indexOf(':') + 1)} ${err.message}`, 'selection');
-}
+};
+
+//Function to connect to remote cluster
+const connectDB = () => {
+
+  mongo.connect(uri, { useUnifiedTopology: true }).then(client => {
+
+    //Mark the connection as successful and notify user
+    dbStatus = true;
+    new Notification('Weather', { body: `Database connection successful.`, icon: '../images/icon.png'});
+
+    //Get main collection
+    userData = client.db('user-data').collection('data');
+
+    //Search collection for unique ID
+    userData.find({'_id': machineID}).hasNext().then(res => {
+
+      if (!res){
+
+        //If the ID does not exist, add user information to the collection
+        userData.insertOne({ '_id': `${machineID}`, 'name':`${machineName}` }).catch(err => notifyFailure(err));
+
+      } else {
+
+        //Fill location data if it is in the database and change screen
+        userData.findOne({ '_id': `${machineID}` }).then(obj => {
+          if (obj.placeName !== undefined){
+            locationData = {
+              'name': `${obj.placeName}`,
+              'latlng': {
+                'lat': `${obj.placeCoords.lat}`,
+                'lng': `${obj.placeCoords.lng}`
+              }
+            };
+            document.getElementById('submit').click();
+          }
+        });
+      }
+    });
+
+  }).catch(err => notifyFailure(err));
+};
 
 //Connect to remote cluster
-mongo.connect(uri, { useUnifiedTopology: true }).then(client => {
-
-  //Mark the connection as successful
-  dbStatus = true;
-
-  //Get main collection
-  userData = client.db('user-data').collection('data');
-
-  //Search collection for unique ID
-  userData.find({'_id': machineID}).hasNext().then(res => {
-
-    if (!res){
-
-      //If the ID does not exist, add user information to the collection
-      userData.insertOne({ '_id': `${machineID}`, 'name':`${machineName}` }).catch(err => notifyFailure(err));
-
-    } else {
-
-      //Fill location data if it is in the database and change screen
-      userData.findOne({ '_id': `${machineID}` }).then(obj => {
-        if (obj.placeName !== undefined){
-          locationData = {
-            'name': `${obj.placeName}`,
-            'latlng': {
-              'lat': `${obj.placeCoords.lat}`,
-              'lng': `${obj.placeCoords.lng}`
-            }
-          };
-          document.getElementById('submit').click();
-        }
-      });
-    }
-  });
-
-}).catch(err => notifyFailure(err));
+connectDB();
 
 //Get welcome container
 const welcome = document.getElementById('welcome');
@@ -153,8 +163,8 @@ const checkConnection = () => {
 checkConnection();
 
 //Add event listeners for connection going online or offline during application use
-window.addEventListener('online', () => checkConnection());
-window.addEventListener('offline', () => checkConnection());
+window.addEventListener('online', () => { checkConnection(); connectDB(); });
+window.addEventListener('offline', () => { checkConnection(); notifyFailure({message: 'Network connection lost'}) });
 
 //Import places autocomplete module and initialize it to the search bar
 const places = require('places.js');
