@@ -244,6 +244,36 @@ submit.addEventListener('click', () => {
 //Change screen when the location is being changed
 document.getElementById('city').addEventListener('click', () => {
 
+  //Check if database connection was successful
+  if (dbStatus){
+
+    //Delete location name and coordinates from user document
+    userData.updateOne(
+      { '_id': machineID },
+      { 
+        $unset: {
+          'placeName': '',
+          'placeCoords': {
+            'lat': '',
+            'lng': ''
+          }
+        } 
+      },
+      { 'upsert': false }
+    ).catch(err => {
+
+      //Notify user in case of failure
+      new Notification('Weather',
+        {
+          body: `Failed to communicate with database. Click to copy error message.`,
+          icon: '../images/icon.png',
+          timeoutType: 'never'
+        })
+        .onclick = () => clipboard.writeText(`${err.toString().slice(0, err.toString().indexOf(':') + 1)} ${err.message}`, 'selection');
+    });
+
+  }
+
   //Hide header and content
   document.getElementById('header').style.display = 'none';
   content.style.display = 'none';
