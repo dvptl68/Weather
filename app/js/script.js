@@ -1,6 +1,7 @@
 ///Connection string for remote MongoDB cluster
 const uri = 'mongodb+srv://weatherMain:txw4ntz8Q3P7DyaL@weather-1smcr.mongodb.net/test?retryWrites=true&w=majority';
 const mongo = require('mongodb').MongoClient;
+const { clipboard } = require('electron');
 
 //Useful variables for database updates
 let userData;
@@ -28,7 +29,13 @@ mongo.connect(uri, { useUnifiedTopology: true }).then(client => {
       userData.insertOne({ '_id': `${machineID}`, 'name':`${machineName}` }).catch(err => {
 
         //Notify user in case of failure
-        new Notification('Weather', { body: `Failed to communicate with database. Your data will not be stored.\n${err}` });
+        new Notification( 'Weather', 
+          {
+            body: `Failed to communicate with database. Your data will not be stored. Click to copy error message.`,
+            icon: '../images/icon.png',
+            timeoutType: 'never'
+          })
+          .onclick = () => clipboard.writeText(`${err.toString().slice(0, err.toString().indexOf(':') + 1)} ${err.message}`, 'selection');
         
         //Mark the connection as failed
         dbStatus = true;
@@ -36,8 +43,17 @@ mongo.connect(uri, { useUnifiedTopology: true }).then(client => {
     }
   });
 
-//Notify user in case of failure
-}).catch(err => new Notification('Weather', { body: `Failed to connect to database. Your data will not be stored.\n${err}` }));
+}).catch(err => {
+
+  //Notify user in case of failure
+  new Notification('Weather',
+    {
+      body: `Failed to connect to database. Your data will not be stored. Click to copy error message.`,
+      icon: '../images/icon.png',
+      timeoutType: 'never'
+    })
+    .onclick = () => clipboard.writeText(`${err.toString().slice(0, err.toString().indexOf(':') + 1)} ${err.message}`, 'selection');
+});
 
 //Get welcome container
 const welcome = document.getElementById('welcome');
@@ -132,6 +148,7 @@ window.addEventListener('offline', () => checkConnection());
 //Import places autocomplete module and initialize it to the search bar
 const places = require('places.js');
 const { app } = require('electron');
+const { pathToFileURL } = require('url');
 const placesAutocomplete = places({
 
   //Keys generated from my account
