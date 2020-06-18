@@ -7,6 +7,9 @@ const { clipboard } = require('electron');
 let userData;
 let dbStatus = false;
 
+//Object to store location data
+let locationData = {};
+
 //Get unique machine ID and machine name
 const machineID = require('node-machine-id').machineIdSync({original: true});
 const machineName = require('os').hostname;
@@ -38,10 +41,26 @@ mongo.connect(uri, { useUnifiedTopology: true }).then(client => {
   //Search collection for unique ID
   userData.find({'_id': machineID}).hasNext().then(res => {
 
-    //If the ID does not exist, add user information to the collection
     if (!res){
 
+      //If the ID does not exist, add user information to the collection
       userData.insertOne({ '_id': `${machineID}`, 'name':`${machineName}` }).catch(err => notifyFailure(err));
+
+    } else {
+
+      //Fill location data if it is in the database and change screen
+      userData.findOne({ '_id': `${machineID}` }).then(obj => {
+        if (obj.placeName !== undefined){
+          locationData = {
+            'name': `${obj.placeName}`,
+            'latlng': {
+              'lat': `${obj.placeCoords.lat}`,
+              'lng': `${obj.placeCoords.lng}`
+            }
+          };
+          document.getElementById('submit').click();
+        }
+      });
     }
   });
 
@@ -154,9 +173,6 @@ const submit = document.getElementById('submit');
 const mouseEnterTransitionSubmit = event => event.target.style.backgroundColor = '#0431CD';
 const mouseLeaveTransitionSubmit = event => event.target.style.backgroundColor = '#3663FF';
 
-//Object to store location data
-let locationData = {};
-
 //Add event listeners for places selections
 placesAutocomplete.on('change', event => {
 
@@ -225,20 +241,23 @@ submit.addEventListener('click', () => {
 //Change screen when the location is being changed
 document.getElementById('city').addEventListener('click', () => {
 
+  //Clear text box
+  document.getElementsByClassName('ap-icon-clear')[0].click();
+
   //Check if database connection was successful
   if (dbStatus){
 
     //Delete location name and coordinates from user document
     userData.updateOne(
       { '_id': machineID },
-      { 
+      {
         $unset: {
           'placeName': '',
           'placeCoords': {
             'lat': '',
             'lng': ''
           }
-        } 
+        }
       },
       { 'upsert': false }
     ).catch(err => notifyFailure(err));

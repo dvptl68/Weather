@@ -95,6 +95,7 @@ html, body {
   padding-bottom: 6px;
   outline: 0 !important;
   opacity: 50%;
+  cursor: default;
 }
 
 .selector {
