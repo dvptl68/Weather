@@ -11,6 +11,21 @@ let dbStatus = false;
 const machineID = require('node-machine-id').machineIdSync({original: true});
 const machineName = require('os').hostname;
 
+//Function for failure notifications
+const notifyFailure = err => {
+
+  //Send desktop notification
+  new Notification( 'Weather', 
+  {
+    body: `Failed to communicate with database. Click to copy error message.`,
+    icon: '../images/icon.png',
+    timeoutType: 'never'
+  })
+
+  //Copy error message to clipboard when clicked
+  .onclick = () => clipboard.writeText(`${err.toString().slice(0, err.toString().indexOf(':') + 1)} ${err.message}`, 'selection');
+}
+
 //Connect to remote cluster
 mongo.connect(uri, { useUnifiedTopology: true }).then(client => {
 
@@ -26,34 +41,11 @@ mongo.connect(uri, { useUnifiedTopology: true }).then(client => {
     //If the ID does not exist, add user information to the collection
     if (!res){
 
-      userData.insertOne({ '_id': `${machineID}`, 'name':`${machineName}` }).catch(err => {
-
-        //Notify user in case of failure
-        new Notification( 'Weather', 
-          {
-            body: `Failed to communicate with database. Click to copy error message.`,
-            icon: '../images/icon.png',
-            timeoutType: 'never'
-          })
-          .onclick = () => clipboard.writeText(`${err.toString().slice(0, err.toString().indexOf(':') + 1)} ${err.message}`, 'selection');
-        
-        //Mark the connection as failed
-        dbStatus = true;
-      });
+      userData.insertOne({ '_id': `${machineID}`, 'name':`${machineName}` }).catch(err => notifyFailure(err));
     }
   });
 
-}).catch(err => {
-
-  //Notify user in case of failure
-  new Notification('Weather',
-    {
-      body: `Failed to connect to database. Click to copy error message.`,
-      icon: '../images/icon.png',
-      timeoutType: 'never'
-    })
-    .onclick = () => clipboard.writeText(`${err.toString().slice(0, err.toString().indexOf(':') + 1)} ${err.message}`, 'selection');
-});
+}).catch(err => notifyFailure(err));
 
 //Get welcome container
 const welcome = document.getElementById('welcome');
@@ -212,18 +204,7 @@ submit.addEventListener('click', () => {
         } 
       },
       { 'upsert': false }
-    ).catch(err => {
-
-      //Notify user in case of failure
-      new Notification('Weather',
-        {
-          body: `Failed to communicate with database. Click to copy error message.`,
-          icon: '../images/icon.png',
-          timeoutType: 'never'
-        })
-        .onclick = () => clipboard.writeText(`${err.toString().slice(0, err.toString().indexOf(':') + 1)} ${err.message}`, 'selection');
-    });
-
+    ).catch(err => notifyFailure(err));
   }
 
   //Hide welcome screen
@@ -260,18 +241,7 @@ document.getElementById('city').addEventListener('click', () => {
         } 
       },
       { 'upsert': false }
-    ).catch(err => {
-
-      //Notify user in case of failure
-      new Notification('Weather',
-        {
-          body: `Failed to communicate with database. Click to copy error message.`,
-          icon: '../images/icon.png',
-          timeoutType: 'never'
-        })
-        .onclick = () => clipboard.writeText(`${err.toString().slice(0, err.toString().indexOf(':') + 1)} ${err.message}`, 'selection');
-    });
-
+    ).catch(err => notifyFailure(err));
   }
 
   //Hide header and content
