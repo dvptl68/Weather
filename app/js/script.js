@@ -31,7 +31,7 @@ mongo.connect(uri, { useUnifiedTopology: true }).then(client => {
         //Notify user in case of failure
         new Notification( 'Weather', 
           {
-            body: `Failed to communicate with database. Your data will not be stored. Click to copy error message.`,
+            body: `Failed to communicate with database. Click to copy error message.`,
             icon: '../images/icon.png',
             timeoutType: 'never'
           })
@@ -48,7 +48,7 @@ mongo.connect(uri, { useUnifiedTopology: true }).then(client => {
   //Notify user in case of failure
   new Notification('Weather',
     {
-      body: `Failed to connect to database. Your data will not be stored. Click to copy error message.`,
+      body: `Failed to connect to database. Click to copy error message.`,
       icon: '../images/icon.png',
       timeoutType: 'never'
     })
@@ -147,8 +147,6 @@ window.addEventListener('offline', () => checkConnection());
 
 //Import places autocomplete module and initialize it to the search bar
 const places = require('places.js');
-const { app } = require('electron');
-const { pathToFileURL } = require('url');
 const placesAutocomplete = places({
 
   //Keys generated from my account
@@ -197,6 +195,36 @@ submit.addEventListener('click', () => {
 
   //End event listener if no location is picked
   if (Object.keys(locationData).length === 0){ return; }
+
+  //Check if database connection was successful
+  if (dbStatus){
+
+    //Add location name and coordinates to user document
+    userData.updateOne(
+      { '_id': machineID },
+      { 
+        $set: {
+          'placeName': `${locationData.name}`,
+          'placeCoords': {
+            'lat': `${locationData.latlng.lat}`,
+            'lng': `${locationData.latlng.lng}`
+          }
+        } 
+      },
+      { 'upsert': false }
+    ).catch(err => {
+
+      //Notify user in case of failure
+      new Notification('Weather',
+        {
+          body: `Failed to communicate with database. Click to copy error message.`,
+          icon: '../images/icon.png',
+          timeoutType: 'never'
+        })
+        .onclick = () => clipboard.writeText(`${err.toString().slice(0, err.toString().indexOf(':') + 1)} ${err.message}`, 'selection');
+    });
+
+  }
 
   //Hide welcome screen
   welcome.style.display = 'none';
@@ -385,7 +413,7 @@ const processCurrent = data => {
   colTwoRowOne.classList.add('col-auto');
   //Create paragraph for condition
   const cond = document.createElement('P');
-  cond.innerHTML = data.current.weather[0].description.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  cond.innerHTML = data.current.weather[0].description.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
   cond.classList.add('text');
   colTwoRowOne.appendChild(cond);
   
