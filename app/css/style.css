@@ -22,7 +22,7 @@ html, body {
 
 [class*="container"] {
   /* border: 2px black solid; */
-  background-color: #3FC1FD;
+  background-color: #7FBBF9;
 }
 
 #header {
@@ -40,7 +40,7 @@ html, body {
 
 .row {
   /* border: 2px red solid; */
-  background-color: #3FC1FD;
+  background-color: #7FBBF9;
   border-bottom: 3px black solid;
 }
 
@@ -48,7 +48,7 @@ html, body {
 
 [class*="col"] {
   /* border: 2px blue solid; */
-  background-color: #3FC1FD;
+  background-color: #7FBBF9;
 }
 
 #title {
@@ -99,7 +99,7 @@ html, body {
 }
 
 .selector {
-  background-color: #3FC1FD;
+  background-color: #7FBBF9;
   border: none;
   color: black;
   text-align: center;
@@ -122,7 +122,7 @@ html, body {
 #daily { margin-left: -3px; }
 
 #city {
-  background-color: #3FC1FD;
+  background-color: #7FBBF9;
   color: black;
   cursor: pointer;
   border: 4px black solid;

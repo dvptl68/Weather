@@ -317,7 +317,7 @@ for (let i = 0; i < selectors.length; i++){
       }else{
 
         //Reset background of all other buttons and add hover event
-        selectors.item(j).style.backgroundColor = '#3FC1FD';
+        selectors.item(j).style.backgroundColor = '#7FBBF9';
         selectors.item(j).style.color = 'black';
         selectors.item(j).style.cursor = 'pointer';
         selectors.item(j).addEventListener('mouseenter', mouseEnterTransitionSelector);
@@ -337,7 +337,7 @@ const mouseEnterTransitionSelector = event => {
 //Add mouse leave color transition
 const mouseLeaveTransitionSelector = event => {
 
-  event.target.style.backgroundColor = '#3FC1FD';
+  event.target.style.backgroundColor = '#7FBBF9';
   event.target.style.color = 'black';
 };
 
