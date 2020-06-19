@@ -50,5 +50,10 @@ This function proved to be extremely helpful in avoiding the incredible amount o
   
 In order to avoid users having to select a location every time the app is opened, I connected the application to a [MongoDB database](https://www.mongodb.com/), which is hosted on [Atlas](https://www.mongodb.com/cloud/atlas). Using the [Node Machine ID package](https://www.npmjs.com/package/node-machine-id) to generate a unique ID for every user, the device name, last location selected, and its coordinates are stored as a document in the database. Every time the application is started, the database is searched using the user's unique machine ID to determine if the user has selected a location before.
 
+You may notice that there is also a [scripts](https://github.com/dvptl68/Weather/tree/master/scripts) folder. The scripts in this folder are not part of the actual program, but they are scripts that helped expedite the development process. Each script is described below:
+- [update.sh](https://github.com/dvptl68/Weather/blob/master/scripts/update.sh) - Bash script that stages, commits, and pushes changes to the repository
+- [update.cmd](https://github.com/dvptl68/Weather/blob/master/scripts/update.cmd) - CMD script that stages, commits, and pushes changes to the repository
+
+
 ## Contribute:
 There may be bugs that I missed, so if you find a bug, you can create an issue or fork this repository, fix the bug, and create a pull request!
