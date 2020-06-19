@@ -9,7 +9,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "package-all": "electron-packager . --overwrite --asar -all --icon=app/images/icon.ico --ignore=scripts --out=builds"
+    "package-all": "electron-packager . --overwrite --asar --all --icon=app/images/icon.ico --ignore=scripts --out=builds"
   },
   "author": "Dev Patel",
   "license": "ISC",
