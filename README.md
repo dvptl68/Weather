@@ -1,5 +1,5 @@
 # Weather :cloud:
-A desktop application that allows you to quickly check the weather anywhere.
+A desktop application that allows you to quickly check the weather at any location.
 
 ## How to use it:
 The easiest way to download and run this application is to use the correct download link below. Unzip the download folder and find the file called ```weather``` (```weather.exe``` for Windows). Double click this file and the application will start. 
@@ -42,9 +42,7 @@ getData('https://...')
   .then(res => {
     /* Code to execute if fetch is successful */
   })
-  .catch(err => {
-    console.error(err);
-  });
+  .catch(err => console.error(err));
 ```
 This function proved to be extremely helpful in avoiding the incredible amount of nesting.  
   
