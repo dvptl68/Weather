@@ -4,7 +4,10 @@ A desktop application that allows you to quickly check the weather at any locati
 ## How to use it:
 The easiest way to download and run this application is to use the correct download link below. Unzip the download folder and find the file called ```weather``` (```weather.exe``` for Windows). Double click this file and the application will start. 
   
-If you don't know your system architecture, read the guide for [Windows](https://www.chiefarchitect.com/support/article/KB-01230/determining-if-your-computer-is-32-bit-or-64-bit.html#Windows) or [macOS](https://www.chiefarchitect.com/support/article/KB-01230/determining-if-your-computer-is-32-bit-or-64-bit.html#macOS). On a Linux machine, open a terminal and type ```uname -m```.
+If you don't know your system architecture, read the guide for [Windows](https://www.chiefarchitect.com/support/article/KB-01230/determining-if-your-computer-is-32-bit-or-64-bit.html#Windows) or [macOS](https://www.chiefarchitect.com/support/article/KB-01230/determining-if-your-computer-is-32-bit-or-64-bit.html#macOS). On a Linux machine, type the following command in a terminal:
+```
+$ uname -m
+```
   
 ### Windows (also known as win32):
 - [x86 (32 bit)](https://github.com/dvptl68/Weather/raw/master/builds/weather-win32-ia32.zip)
