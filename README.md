@@ -44,8 +44,7 @@ const getData = async url => {
 getData('https://...')
   .then(res => {
     /* Code to execute if fetch is successful */
-  })
-  .catch(err => console.error(err));
+  }).catch(err => console.error(err));
 ```
 This function proved to be extremely helpful in avoiding the incredible amount of nesting.  
   
