@@ -32,7 +32,7 @@ The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using
 const getData = async url => {
   try {
     return await (await fetch(url)).json();
-  }catch (err){
+  } catch (err) {
     console.error(err);
   }
 };
