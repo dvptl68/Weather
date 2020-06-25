@@ -26,6 +26,8 @@ $ uname -m
 Another way to run the application is to clone the project (assuming you have node.js and npm installed). After cloning the repository, execute ```npm install``` in the root directory to install all dependencies. Then, the application will start upon executing the command ```npm start``` in the root directory.
 
 ## How it works:
+*Note: All project dependencies can be viewed in depth with the [dependency graph](https://github.com/dvptl68/weather/network/dependencies).*
+
 This application utilizes the [Electron](https://github.com/electron/electron) framework, which allows cross-platform desktop application development with HTML, CSS, and JavaScript. Additionally, [Bootstrap 4](https://getbootstrap.com/) was used for the application layout.  
   
 Weather data is accessed using the free [OpenWeatherMap API](https://openweathermap.org/api). This API allows up to 1,000,000 free requests per month to access current, 60 minute (only in the US), 48 hour, and 7 day weather data. In order to make the API request, the geographical coordinates of a location is needed. In order to allow users to select any city/address and determine the latitude and longitude, the [Algolia Places API](https://community.algolia.com/places/) was used.  
