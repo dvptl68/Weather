@@ -34,7 +34,7 @@ Weather data is accessed using the free [OpenWeatherMap API](https://openweather
   
 The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) was used to make HTTP requets. Since the fetch function returns a promise, I quickly found myself caught in [callback hell](http://callbackhell.com/). In order to remedy the mountain structure of nesting, I created the asynchronous function ```getData(url)```:
 
-![Source Code](source-code.png)
+![Source Code](images/source-code.png)
 
 This function proved to be extremely helpful in avoiding the incredible amount of nesting.  
   
@@ -47,3 +47,10 @@ You may notice that there is also a [scripts](https://github.com/dvptl68/Weather
 
 ## Contribute:
 There may be bugs that I missed, so if you find a bug, you can create an issue or fork this repository, fix the bug, and create a pull request!
+
+## Screenshots:
+![Welcome Page](images/location-select.jpg)
+![Current](images/current-weather.jpg)
+![Minutely](images/minutely-weather.jpg)
+![Hourly](images/hourly-weather.jpg)
+![Daily](images/daily-weather.jpg)
