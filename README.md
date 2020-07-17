@@ -10,18 +10,18 @@ $ uname -m
 ```
   
 ### Windows (also known as win32):
-- [x86 (32 bit)](https://github.com/dvptl68/Weather/raw/master/builds/weather-win32-ia32.zip)
-- [x86_64 (64 bit)](https://github.com/dvptl68/Weather/raw/master/builds/weather-win32-x64.zip)
-- [arm64 (64 bit)](https://github.com/dvptl68/Weather/raw/master/builds/weather-win32-arm64.zip)
+- [x86 (32 bit)](https://github.com/dvptl68/weather/releases/download/v1.0.0/weather-win32-ia32.zip)
+- [x86_64 (64 bit)](https://github.com/dvptl68/weather/releases/download/v1.0.0/weather-win32-x64.zip)
+- [arm64 (64 bit)](https://github.com/dvptl68/weather/releases/download/v1.0.0/weather-win32-arm64.zip)
 
 ### macOS/OS X (also known as darwin):
-- [x64 (64 bit)](https://github.com/dvptl68/Weather/raw/master/builds/weather-darwin-x64.zip)
+- [x64 (64 bit)](https://github.com/dvptl68/weather/releases/download/v1.0.0/weather-darwin-x64.zip)
 
 ### Linux:
-- [x86 (32 bit)](https://github.com/dvptl68/Weather/raw/master/builds/weather-linux-ia32.zip)
-- [x86_64 (64 bit)](https://github.com/dvptl68/Weather/raw/master/builds/weather-linux-x64.zip)
-- [armv7l (32 bit)](https://github.com/dvptl68/Weather/raw/master/builds/weather-linux-armv7l.zip)
-- [arm64 (64 bit)](https://github.com/dvptl68/Weather/raw/master/builds/weather-linux-arm64.zip)
+- [x86 (32 bit)](https://github.com/dvptl68/weather/releases/download/v1.0.0/weather-linux-ia32.zip)
+- [x86_64 (64 bit)](https://github.com/dvptl68/weather/releases/download/v1.0.0/weather-linux-x64.zip)
+- [armv7l (32 bit)](https://github.com/dvptl68/weather/releases/download/v1.0.0/weather-linux-armv7l.zip)
+- [arm64 (64 bit)](https://github.com/dvptl68/weather/releases/download/v1.0.0/weather-linux-arm64.zip)
 
 Another way to run the application is to clone the project (assuming you have node.js and npm installed). After cloning the repository, execute ```npm install``` in the root directory to install all dependencies. Then, the application will start upon executing the command ```npm start``` in the root directory.
 
